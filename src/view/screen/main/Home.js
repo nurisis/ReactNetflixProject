@@ -1,8 +1,9 @@
 
 import React from 'react';
-import { View, Text, SafeAreaView, FlatList, StyleSheet } from 'react-native';
+import { View, Text, SafeAreaView, FlatList, StyleSheet,TouchableOpacity,Alert } from 'react-native';
 import { Card } from 'react-native-elements'
 import { randomUsers } from '../etc/Util';
+import AppStyle  from '../../../style/AppStyle';
 
 class Home extends React.Component {
 
@@ -10,25 +11,30 @@ class Home extends React.Component {
       data: randomUsers(20),  
     };
 
+    videoDetailMove(){
+      this.props.navigation.navigate('VideoDetail')
+    }
+
     render() {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={AppStyle.flexCC}>
           <SafeAreaView style={styles.background}>
                 <Text style={styles.header}>Netflix weekly top series</Text>
                 <FlatList
                     data={this.state.data}
                     horizontal
                     renderItem={({ item }) =>
+                    <TouchableOpacity onPress={()=>this.videoDetailMove()}>
                         <Card
                             image = {{uri : item.avatar}}
                             title = {item.name}
                             containerStyle = {{ width:160, height:260}}
                             style = {styles.card}>
                         </Card>
+                    </TouchableOpacity>
                     }
                 />
           </SafeAreaView>
-        
         </View>
       );
     }
