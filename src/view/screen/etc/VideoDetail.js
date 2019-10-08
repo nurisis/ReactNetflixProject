@@ -8,26 +8,26 @@ import {
     Component,
     FlatList,
     Image,
-    TouchableOpacity
+    ImageBackground,
+    TouchableOpacity,
+    Modal,
+    TouchableHighlight,
+    PixelRatio
 } from 'react-native';
-
-import { randomUsers } from './Util';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AppStyle from '../../../style/AppStyle';
+import StringUtil from './StringUtil';
 
 
-// redux
-import {createStore} from 'redux';
-import { Provider } from 'react-redux';
-import ReactDOM from 'react-dom';
-
+import { Provider } from 'react-redux'
+import initStore from '../../../view/screen/etc/test/store';
 
 
 class VideoDetail extends React.Component {
 
     state = {
-        backgroundImg: require("./share.png"),
+        backgroundImg: require("../../../dummy/img/share.png"),
         title: "아는형님2",
         year: 2019,
         seasonCount: 4,
@@ -37,11 +37,13 @@ class VideoDetail extends React.Component {
         subTitle: "매주 일요일 새로운 에피소드 공개",
         subTitle2: "\"워너원 편\"",
         summary: "교실에 훈훈한 지수가 치솟는다. 순회공연을 마치고 완전체로 돌아온다 워너원. 열한 명의 전학생들이 예능 종합선물세트를 선보인다. 현님들과의 현란한 댄스 대결은 덤!",
-        isLike: true,
+
+        isLike: false,
         isEsteem: 1,
         esteem: 1,
+        downloadVisible: false,
 
-        // type : series 
+
         list: {
             type: "series",
             seasonList: [
@@ -55,7 +57,7 @@ class VideoDetail extends React.Component {
                             playTime: 88,
                             title: "게르마늄 팔찌를 찬 여자1",
                             summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-                            thumbnail: require('./share.png')
+                            thumbnail: require("../../../dummy/img/share.png")
                         },
                         {
                             id: 3,
@@ -64,7 +66,7 @@ class VideoDetail extends React.Component {
                             playTime: 11,
                             title: "게르마늄 팔찌를 찬 여자3",
                             summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-                            thumbnail: require('./share.png')
+                            thumbnail: require("../../../dummy/img/share.png")
                         },
                         {
                             id: 2,
@@ -73,7 +75,7 @@ class VideoDetail extends React.Component {
                             playTime: 88,
                             title: "게르마늄 팔찌를 찬 여자2",
                             summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-                            thumbnail: require('./share.png')
+                            thumbnail: require("../../../dummy/img/share.png")
                         }
                     ]
                 },
@@ -87,7 +89,34 @@ class VideoDetail extends React.Component {
                             playTime: 22,
                             title: "게르마늄 팔찌를 찬 여자1",
                             summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-                            thumbnail: require('./share.png')
+                            thumbnail: require("../../../dummy/img/share.png")
+                        },
+                        {
+                            id: 4,
+                            order: 4,
+                            uploadDate: "20190806",
+                            playTime: 22,
+                            title: "게르마늄 팔찌를 찬 여자4",
+                            summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
+                            thumbnail: require("../../../dummy/img/share.png")
+                        },
+                        {
+                            id: 6,
+                            order: 6,
+                            uploadDate: "20190806",
+                            playTime: 99,
+                            title: "게르마늄 팔찌를 찬 여자6",
+                            summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
+                            thumbnail: require("../../../dummy/img/share.png")
+                        },
+                        {
+                            id: 5,
+                            order: 5,
+                            uploadDate: "20190806",
+                            playTime: 181,
+                            title: "게르마늄 팔찌를 찬 여자5",
+                            summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
+                            thumbnail: require("../../../dummy/img/share.png")
                         },
                         {
                             id: 3,
@@ -96,7 +125,7 @@ class VideoDetail extends React.Component {
                             playTime: 88,
                             title: "게르마늄 팔찌를 찬 여자3",
                             summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-                            thumbnail: require('./share.png')
+                            thumbnail: require("../../../dummy/img/share.png")
                         },
                         {
                             id: 2,
@@ -105,7 +134,7 @@ class VideoDetail extends React.Component {
                             playTime: 88,
                             title: "게르마늄 팔찌를 찬 여자2",
                             summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-                            thumbnail: require('./share.png')
+                            thumbnail: require("../../../dummy/img/share.png")
                         }
                     ]
                 }
@@ -114,42 +143,62 @@ class VideoDetail extends React.Component {
 
         // subTab api 따로
         subTab: ["회차정보", "비슷한 컨텐츠"],
-        // videoSeries : false,
-
 
         visibleList: "series",
         similarVideList: [
             {
                 similarRanking: 3,
                 id: 3,
-                thumbnail: require('./share.png')
+                thumbnail: require("../../../dummy/img/share.png")
             },
             {
                 similarRanking: 4,
                 id: 4,
-                thumbnail: require('./share.png')
+                thumbnail: require("../../../dummy/img/share.png")
             },
             {
                 similarRanking: 6,
                 id: 6,
-                thumbnail: require('./share.png')
+                thumbnail: require("../../../dummy/img/share.png")
             },
             {
                 similarRanking: 1,
                 id: 1,
-                thumbnail: require('./share.png')
+                thumbnail: require("../../../dummy/img/share.png")
             },
             {
                 similarRanking: 2,
                 id: 2,
-                thumbnail: require('./share.png')
+                thumbnail: require("../../../dummy/img/share.png")
             },
             {
                 similarRanking: 5,
                 id: 5,
-                thumbnail: require('./share.png')
+                thumbnail: require("../../../dummy/img/share.png")
+            },
+            {
+                similarRanking: 6,
+                id: 5,
+                thumbnail: require("../../../dummy/img/share.png")
+            },
+            {
+                similarRanking: 7,
+                id: 5,
+                thumbnail: require("../../../dummy/img/share.png")
+            },
+            {
+                similarRanking: 8,
+                id: 5,
+                thumbnail: require("../../../dummy/img/share.png")
+            },
+            {
+                similarRanking: 9,
+                id: 5,
+                thumbnail: require("../../../dummy/img/share.png")
             }
-        ]
+        ],
+
+        visibleModal: false,
     };
 
     isVideoList = (visibleList) => {
@@ -162,13 +211,24 @@ class VideoDetail extends React.Component {
             case "similar":
                 visibleName = "similar";
                 break;
-
         }
 
         this.setState({
             visibleList: visibleName
         });
     };
+
+    videoLike = () => {
+        this.setState({
+            isLike: !(this.state.isLike)
+        });
+    };
+
+    visibleModal = () => {
+        this.setState({
+            visibleModal: !(this.state.visibleModal)
+        });
+    }
 
     render() {
 
@@ -186,23 +246,16 @@ class VideoDetail extends React.Component {
             });
         };
 
-
-        TIME = "시간";
-        HOUR = "시";
-        MINUTE = "분";
-        SECOND = "초";
-
         //   분 -> 2시간 10분
         function minConvertPlayTime(min) {
             let resultHour = parseInt((min / 60));
             let resultMin = min % 60;
 
             if (resultHour > 0) {
-                return resultHour + TIME + " " + resultMin + MINUTE;
+                return resultHour + StringUtil.TIME + " " + resultMin + StringUtil.MINUTE;
             }
-            return resultMin + MINUTE;
+            return resultMin + StringUtil.MINUTE;
         }
-
 
         //   비디오 목록 정렬
         sortAscending(this.state.list.seasonList, "season");
@@ -214,81 +267,153 @@ class VideoDetail extends React.Component {
         // 비슷한 비디오 목록 정렬
         sortAscending(this.state.similarVideList, "similarRanking");
 
-
         return (
             <View style={AppStyle.flexCC}>
                 <ScrollView>
-                    <View style={AppStyle.absolute, { height: 300 }}>
-                        <Image style={{
-                            height: 300
-                        }}
-
-                            source={this.state.backgroundImg}>
-                        </Image>
+                    <View style={[AppStyle.absolute, { height: 300, width: '100%' }]}>
+                        <ImageBackground source={this.state.backgroundImg} style={{ height: 300 }}>
+                            <View style={[AppStyle.flexCC]}>
+                                <Ionicons name="ios-play-circle" size={100} color={AppStyle.white} >
+                                </Ionicons>
+                            </View>
+                        </ImageBackground>
                     </View>
 
-                    <View style={[style.container, AppStyle.basePadding]}>
-                        <View style={style.descriptonContainer}>
-                            <Text style={style.title}>{this.state.title}</Text>
-                            <View style={style.flexContainer}>
+                    <View style={[style.container, AppStyle.basePadding, { marginTop: 350 }]}>
+                        <View style={[style.descriptonContainer]}>
+                            <Text style={style.title}>
+                                {this.state.title}
+                            </Text>
+                            <View style={AppStyle.flexRow}>
                                 <Text style={AppStyle.green}>{this.state.sameRate}% 일치</Text>
+                                <View style={[AppStyle.flexRow, { marginLeft: 10 }]}>
 
-                                <Text style={AppStyle.flexRow, style.videoInfo}>
-                                    {this.state.year}
-                                    {this.state.allowAge}
-                                    시즌{this.state.seasonCount} 개
-                                    {this.state.resolution}
-                                </Text>
+                                    <View>
+                                        <Text style={style.videoInfo}>
+                                            {this.state.year}
+                                        </Text>
+                                    </View>
 
+                                    <View style={{ paddingLeft: 5 }}>
+                                        <Text style={style.videoInfo}>
+                                            {this.state.allowAge}
+                                        </Text>
+                                    </View>
+
+                                    <View style={{ paddingLeft: 5 }}>
+                                        <Text style={style.videoInfo}>
+                                            시즌{this.state.seasonCount} 개
+                                    </Text>
+                                    </View>
+
+                                    <View style={{ paddingLeft: 5 }}>
+                                        <Text style={[style.videoInfo, AppStyle.fb]}>
+                                            {this.state.resolution}
+                                        </Text>
+                                    </View>
+
+                                </View>
                             </View>
 
-                            <View>
+                            <View style={[{ marginTop: 10, marginBottom: 10 }]}>
                                 <Text style={style.subTitle}>
                                     {this.state.subTitle}
                                 </Text>
-
-                                <Text style={style.subTitle2}>
+                                <Text style={[style.subTitle2, { marginTop: 5 }]}>
                                     {this.state.subTitle2}
                                 </Text>
-                                <Text style={style.summary}>
+                                <Text style={[style.summary, { marginTop: 5 }]}>
                                     {this.state.summary}
                                 </Text>
                             </View>
 
                             {/* 공유하기 버튼  */}
                             <View style={AppStyle.flexRow}>
-                                <View style={style.iconBtn, AppStyle.flexColumn, AppStyle.flexCC, { backgroundColor: "white" }}>
-                                    <Ionicons name="ios-add" size={50} color={AppStyle.white} ></Ionicons>
-                                    <Text style={style.iconBtnText}>내가 찜한 콘텐츠</Text>
-                                </View>
-                                <View style={style.iconBtn, { backgroundColor: "white", marginLeft: 20 }} >
-                                    <Ionicons name="ios-thumbs-up" size={50} color={AppStyle.white} ></Ionicons>
-                                    <Text style={style.iconBtnText}>평가</Text>
-                                </View>
-                                <View style={style.iconBtn, { backgroundColor: "white", marginLeft: 20 }}>
+
+                                <TouchableOpacity onPress={() => this.videoLike()}>
+                                    <View style={[style.iconBtn, AppStyle.flexColumn, AppStyle.flexCC]}>
+                                        {
+                                            this.state.isLike ?
+                                                (
+                                                    <Ionicons name="ios-add" size={50} color={AppStyle.white} ></Ionicons>
+                                                ) : <Ionicons name="ios-checkmark" size={50} color={AppStyle.white} ></Ionicons>
+                                        }
+                                        <Text style={style.iconBtnText}>내가 찜한 콘텐츠</Text>
+                                    </View>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity onPress={() => this.visibleModal()}>
+                                    <View style={[style.iconBtn, { marginLeft: 20 }]} >
+                                        <Ionicons name="ios-thumbs-up" size={50} color={AppStyle.white} ></Ionicons>
+                                        <Text style={style.iconBtnText}>평가</Text>
+                                    </View>
+                                </TouchableOpacity>
+
+                                {/*  좋아요 평가 모달창 */}
+                                <Modal
+                                    animationType="fade"
+                                    transparent={true}
+                                    overlayBackground={'rgba(0, 0, 0, 0.4)'}
+                                    visible={this.state.visibleModal}
+                                    onRequestClose={() => {
+                                    }}
+                                    onShow = {() =>{
+                                    }}>
+                                        <View style={{
+                                            width : "100%", 
+                                            height : "100%",
+                                            backgroundColor : 'rgba(255, 255, 255, 0.4)' }}>
+
+                                                <View style={{position: 'absolute',
+                                                 left : "50%", top : "50%", 
+                                                 marginLeft : -100, marginTop : -100,
+                                                  width : 200, height : 200}}>
+
+                                                    <View style={[AppStyle.flexCC]}>
+                                                        <View style={[AppStyle.flexRow,AppStyle.flexCSb,{width : '100%'}]}>
+                                                             <Ionicons name="ios-thumbs-up" size={100} />
+                                                             <Ionicons name="ios-thumbs-down" size={100} />
+                                                        </View>
+
+                                                        <TouchableOpacity onPress = {() => {
+                                                                  this.setState({
+                                                                    visibleModal : false
+                                                                })
+                                                            }}>    
+                                                      
+                                                            <Ionicons name="ios-close-circle" size={65} />
+                                                       
+                                                       </TouchableOpacity>
+                                                    </View>
+                                                </View>
+                                        </View>
+                                </Modal>
+
+                                <View style={[style.iconBtn, { marginLeft: 20 }]}>
                                     <Ionicons name="ios-share" size={50} color={AppStyle.white} />
                                     <Text style={style.iconBtnText}>공유</Text>
                                 </View>
+
                             </View>
 
                             <View style={[AppStyle.flexRow, { marginTop: 30 }]}>
                                 <TouchableOpacity onPress={() => this.isVideoList("series")}>
                                     <View>
                                         {
-                                            this.state.visibleList == "series" ?
-                                                (
-                                                    <View style={AppStyle.flexColumn}>
-                                                        <Text style={AppStyle.flexCC,[AppStyle.white,AppStyle.textC, {
-                                                            borderTopColor : "red",
-                                                            borderTopWidth : 1,
-                                                            width : 100,
-                                                            width: 100}]}>
-                                                             회차정보
-                                                        </Text>
-                                                    </View>
-                                                ) : <Text style={[AppStyle.flexCC,AppStyle.white,AppStyle.textC, { width: 100}]}>
-                                                    회차정보
-                                                    </Text>
+                                            <Text
+                                                style={[
+                                                    AppStyle.flexCC, AppStyle.white, AppStyle.textC,
+                                                    {
+                                                        width: 100
+                                                    },
+                                                    this.state.visibleList == "series" ?
+                                                        {
+                                                            borderTopColor: "red",
+                                                            borderTopWidth: 1,
+                                                        } : ''
+                                                ]}>
+                                                회차정보
+                                            </Text>
                                         }
                                     </View>
                                 </TouchableOpacity>
@@ -296,22 +421,21 @@ class VideoDetail extends React.Component {
                                 <TouchableOpacity onPress={() => this.isVideoList("similar")}>
                                     <View>
                                         {
-                                            this.state.visibleList == "similar" ?
-                                                (
-                                                    <View style={AppStyle.flexColumn}>
-                                                    <Text style={[AppStyle.flexCC,AppStyle.white,AppStyle.textC, 
-                                                    {borderTopColor : "red",
-                                                    borderTopWidth : 1,
-                                                    width : 100,
-                                                    width: 100}]}>
-                                                        비슷한 콘텐츠
-                                                    </Text>
-                                                    </View>
-                                                ) : <Text style={[AppStyle.white,AppStyle.textC, { width: 100 }]}>
-                                                        비슷한 콘텐츠
-                                                    </Text>
-                                        }
+                                            <Text style={[
+                                                AppStyle.flexCC, AppStyle.white, AppStyle.textC,
+                                                {
+                                                    width: 100,
+                                                },
+                                                this.state.visibleList == "similar" ?
+                                                    {
+                                                        borderTopColor: "red",
+                                                        borderTopWidth: 1,
 
+                                                    } : ''
+                                            ]}>
+                                                비슷한 콘텐츠
+                                            </Text>
+                                        }
                                     </View>
                                 </TouchableOpacity>
 
@@ -326,15 +450,16 @@ class VideoDetail extends React.Component {
                                                 scrollEnabled={false}
                                                 data={videoList.viodeos}
                                                 renderItem={({ item }) => (
-                                                    <View style={AppStyle.flexColumn, AppStyle.basePadding, { paddingTop: 20 }}>
+                                                    <View style={[AppStyle.flexColumn, AppStyle.basePadding, { paddingTop: 20 }]}>
                                                         <View style={AppStyle.flexRow}>
-                                                            <View style={AppStyle.bgWhite, style.iconBtn, { marginLeft: 20 }}>
+                                                            <View style={[AppStyle.bgGray, style.iconBtn, { marginLeft: 20 }]}>
                                                                 <Image
-                                                                    style={AppStyle.bgGray, { height: 100, width: 100 }}
-                                                                    source={item.thumbnail}></Image>
+                                                                    style={[{ height: 100, width: 100 }]}
+                                                                    source={item.thumbnail}>
+                                                                </Image>
                                                             </View>
 
-                                                            <View style={AppStyle.flexColumn, { marginLeft: 15 }}>
+                                                            <View style={[AppStyle.flexColumn, { marginLeft: 20 }]}>
                                                                 <Text style={AppStyle.white}>
                                                                     {item.order}. {item.title}
                                                                 </Text>
@@ -344,8 +469,8 @@ class VideoDetail extends React.Component {
                                                             </View>
                                                         </View>
 
-                                                        <View style={AppStyle.gray,AppStyle.basePadding, { marginTop: 20 }}>
-                                                            <Text style={AppStyle.gray}>
+                                                        <View style={[AppStyle.gray, { marginTop: 20 }]}>
+                                                            <Text style={[AppStyle.basePadding, AppStyle.gray, { marginTop: 3 }]}>
                                                                 {item.summary}
                                                             </Text>
                                                         </View>
@@ -353,8 +478,7 @@ class VideoDetail extends React.Component {
                                                 )} />
                                         </View>
                                     </View>
-                                )
-                                    : null
+                                ) : null
                             }
 
 
@@ -363,11 +487,11 @@ class VideoDetail extends React.Component {
                                 this.state.visibleList == "similar" ? (
                                     <View style={style.recommendMovieContainer}>
                                         <FlatList
-                                        scrollEnabled={false}
+                                            scrollEnabled={false}
                                             numColumns={3}
                                             data={this.state.similarVideList}
                                             renderItem={({ item }) => (
-                                                <View style={AppStyle.flexColumn}>
+                                                <View style={[AppStyle.flexCFs, { width: 110, height: 160 }]}>
                                                     <Image style={{
                                                         height: 150,
                                                         width: 100,
@@ -401,6 +525,7 @@ const style = StyleSheet.create({
 
     descriptonContainer: {
         flex: 1,
+        marginTop: 10
     },
 
     videoDescriptonContainer: {
@@ -411,8 +536,6 @@ const style = StyleSheet.create({
     videoInfo: {
         color: 'gray',
         opacity: .84,
-        marginLeft: 10,
-        // color : 'rgba(0,0,0,0.5)'
     },
     title: {
         color: "white",
@@ -429,19 +552,20 @@ const style = StyleSheet.create({
         fontSize: 13,
         fontWeight: 'bold',
     },
-
     summary: {
         color: "white",
         fontSize: 13,
     },
+
 
     //  좋아요 버튼 영역 
     iconBtn: {
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: "column",
-        width: 120,
-        height: 80
+        width: 110,
+        height: 80,
+        backgroundColor: "white"
     },
     iconBtnImg: {
         width: 40,
@@ -453,7 +577,7 @@ const style = StyleSheet.create({
         marginTop: 3
     },
 
-    // top 영역의 이미지 영역
+    // top의 이미지 영역
     homeBackgroundContainer: {
         position: 'absolute',
         width: '100%',
@@ -477,77 +601,6 @@ const style = StyleSheet.create({
         width: 100,
         resizeMode: 'contain',
     },
-
-    // 폰트 크기 및 색상 정의 필요
-    // fCGreen: {
-    //     color: "green"
-    // },
-    // fcWhite: {
-    //     color: "white"
-    // },
-    bgBlue: {
-        backgroundColor: "blue"
-    },
-    flexContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    basePadding: {
-        paddingLeft: 10,
-        paddingRight: 10
-    },
 });
-
-
-// actin
-const SUBTAB_CLICK ="SUBTAB_CLICK";
-const LikeVideo ="LikeVideo";
-export function subtabClick(){
-    return {
-        type : "SUBTAB_CLICK"
-    };
-}
-export
-export function likeVideo(){
-    return {
-        type : "LikeVideo"
-    };
-}
-
-// store
-const store = createStore(reducers);
-
-// Default State
-const initialState = {
-    isLike: false
-};
-
-//reducer
-function reducer (state = initialState,action){
-    switch(action.type){
-        case LikeVideo:
-            return {
-                isLike : !(state.isLike)
-            }
-            break;
-    }
-    return state;
-}
-
-// reducer 결합
-const allReducers = combineReducers({
-    reducer,
-  });
-
-
-
-
-
-
-
-
-
-
-
 
 export default VideoDetail;

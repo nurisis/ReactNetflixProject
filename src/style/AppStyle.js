@@ -260,5 +260,28 @@ export default AppStyle = StyleSheet.create({
     },
     textJ : {
         textAlign : "justify"
+    },
+
+
+    /**
+     *  폰트 굵기
+     */
+    fb : {
+        fontWeight: 'bold'
+    },
+    fn : {
+        fontWeight: 'normal'
+    },
+    
+    /**
+     * 앱 기본값 초기화
+     */
+    basePadding : {
+        paddingLeft : 10,
+        paddingRight : 10
+    },
+    baseMargin : {
+        marginLeft : 10,
+        marginRight : 10
     }
 });

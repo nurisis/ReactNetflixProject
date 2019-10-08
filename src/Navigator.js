@@ -26,7 +26,7 @@ const MoreStack = createStackNavigator({
       Saved: SavedScreen,
       More: { screen: MoreStack },
     },
-
+    
     {
       defaultNavigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ focused, tintColor }) => {
@@ -43,11 +43,13 @@ const MoreStack = createStackNavigator({
           } else if (routeName === 'More') {
             iconName = `ios-options`;
           }
+
           // You can return any component that you like here! We usually use an
           // icon component from react-native-vector-icons
           return <Ionicons name={iconName} size={25} color={tintColor} />;
         },
       }),
+      
       tabBarOptions: {
         activeTintColor: 'tomato',
         inactiveTintColor: 'gray',
