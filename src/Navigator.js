@@ -10,6 +10,8 @@ import ScheduleScreen from './view/screen/main/Schedule'
 import SavedScreen from './view/screen/main/Saved'
 import MoreScreen from './view/screen/main/More'
 import DetailsScreen from './view/screen/etc/Detail'
+import LoginScreen from './view/screen/etc/Login'
+
 
 
 const MoreStack = createStackNavigator({
@@ -17,11 +19,7 @@ const MoreStack = createStackNavigator({
     Details: { screen: DetailsScreen },
   });
   
-  
-  
-  
-  
-  export default createAppContainer(createBottomTabNavigator(
+const bottomTabNavigator = createBottomTabNavigator(
     {
       Home: HomeScreen,
       Search: SearchScreen,
@@ -55,7 +53,21 @@ const MoreStack = createStackNavigator({
         activeTintColor: 'tomato',
         inactiveTintColor: 'gray',
       },
-    }
-  ));
+      }
+  )
+  
+  
+const RootStack =  (authenticated) => createStackNavigator({
+    Login: { screen: LoginScreen },
+    Bottom: {screen:bottomTabNavigator},
+
+  }, { headerMode: 'none' ,
+       initialRouteName:authenticated ? 'Bottom' : 'Login'
+  });
+
+  
+  export default appContainer = (authenticated) => createAppContainer(
+        RootStack(authenticated)
+  );
   
   
