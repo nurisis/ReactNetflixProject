@@ -11,7 +11,7 @@ import SavedScreen from './view/screen/main/Saved'
 import MoreScreen from './view/screen/main/More'
 import DetailsScreen from './view/screen/etc/Detail'
 import LoginScreen from './view/screen/etc/Login'
-
+import VideoDetailScreen from './view/screen/etc/VideoDetail'
 
 
 const MoreStack = createStackNavigator({
