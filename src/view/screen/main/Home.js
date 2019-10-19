@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Text, SafeAreaView, FlatList, StyleSheet, ScrollView, View } from 'react-native';
+import { Text, SafeAreaView, FlatList, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-elements'
 // import {VideoPlayer} from 'react-native-video-player'
 import { randomUsers } from '../etc/Util';
@@ -20,6 +20,10 @@ class Home extends React.Component {
       // thumbnailUrl: "http://dkadf2kfhfqn2.cloudfront.net/images/video_thumbnail/hykwf678233_2019-10-04_13:29:23.jpg",
       videoUrl: "http://dkadf2kfhfqn2.cloudfront.net/videos/hykwf678233_2019-10-04_13:29:23.mp4",
     };
+
+    videoDetailMove(){
+      this.props.navigation.navigate('VideoDetail')
+    }
 
     onMorePress() {
       Alert.alert(
@@ -51,11 +55,13 @@ class Home extends React.Component {
                     horizontal
                     style={styles.flatlist}
                     renderItem={({ item }) =>
+                      <TouchableOpacity onPress={()=>this.videoDetailMove()}>
                         <Card
                             image = {{uri : item.avatar}}
                             containerStyle = {{ width:110, flexGrow:0}}
                             style = {styles.card}>
                         </Card>
+                      </TouchableOpacity>
                     }
                 />
                 <Text style={styles.header}>지금 뜨는 콘텐츠</Text>
