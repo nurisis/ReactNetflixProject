@@ -12,16 +12,17 @@ import {
     TouchableOpacity,
     Modal,
     TouchableHighlight,
-    PixelRatio
+    PixelRatio,
+    Button,
+    Share
 } from 'react-native';
+
+import ShareBtn from '../../module/ShareBtn';
+import DibsBtn from '../../module/DibsBtn';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AppStyle from '../../../style/AppStyle';
 import StringUtil from './StringUtil';
-
-
-import { Provider } from 'react-redux'
-import initStore from '../../../view/screen/etc/test/store';
 
 
 class VideoDetail extends React.Component {
@@ -39,6 +40,8 @@ class VideoDetail extends React.Component {
         summary: "교실에 훈훈한 지수가 치솟는다. 순회공연을 마치고 완전체로 돌아온다 워너원. 열한 명의 전학생들이 예능 종합선물세트를 선보인다. 현님들과의 현란한 댄스 대결은 덤!",
 
         isLike: false,
+        isDibs : false,
+
         isEsteem: 1,
         esteem: 1,
         downloadVisible: false,
@@ -229,6 +232,28 @@ class VideoDetail extends React.Component {
             visibleModal: !(this.state.visibleModal)
         });
     }
+    
+    onShare = async () => {
+        try {
+          const result = await Share.share({
+            message:
+              'React Native | A framework for building native apps using React',
+          });
+    
+          if (result.action === Share.sharedAction) {
+            if (result.activityType) {
+              // shared with activity type of result.activityType
+            } else {
+              // shared
+            }
+          } else if (result.action === Share.dismissedAction) {
+            // dismissed
+          }
+        } catch (error) {
+          alert(error.message);
+        }
+      };
+
 
     render() {
 
@@ -262,6 +287,7 @@ class VideoDetail extends React.Component {
         this.state.list.seasonList.forEach(function (season) {
             sortAscending(season.viodeos, "order");
         });
+
         let videoList = this.state.list.seasonList[0];
 
         // 비슷한 비디오 목록 정렬
@@ -327,8 +353,9 @@ class VideoDetail extends React.Component {
                                 </Text>
                             </View>
 
-                            {/* 공유하기 버튼  */}
+                            {/* 찜하기 버튼  */}
                             <View style={AppStyle.flexRow}>
+                                {/* <DibsBtn isDibs ={this.state.isDibs}></DibsBtn> */}
 
                                 <TouchableOpacity onPress={() => this.videoLike()}>
                                     <View style={[style.iconBtn, AppStyle.flexColumn, AppStyle.flexCC]}>
@@ -338,7 +365,9 @@ class VideoDetail extends React.Component {
                                                     <Ionicons name="ios-add" size={50} color={AppStyle.white} ></Ionicons>
                                                 ) : <Ionicons name="ios-checkmark" size={50} color={AppStyle.white} ></Ionicons>
                                         }
-                                        <Text style={style.iconBtnText}>내가 찜한 콘텐츠</Text>
+                                        <Text style={style.iconBtnText}>
+                                        {StringUtil.DIBS_CONTENT}
+                                        </Text>
                                     </View>
                                 </TouchableOpacity>
 
@@ -389,10 +418,8 @@ class VideoDetail extends React.Component {
                                         </View>
                                 </Modal>
 
-                                <View style={[style.iconBtn, { marginLeft: 20 }]}>
-                                    <Ionicons name="ios-share" size={50} color={AppStyle.white} />
-                                    <Text style={style.iconBtnText}>공유</Text>
-                                </View>
+                                {/* 공유하기 버튼 */}
+                                <ShareBtn></ShareBtn>
 
                             </View>
 
