@@ -1,6 +1,3 @@
-
-
-
 import React from 'react';
 import Navigator from './src/Navigator';
 import {View,Text,StyleSheet, ActivityIndicator,AsyncStorage} from 'react-native';
@@ -63,7 +60,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
   }
 }
-
 
 const mapStateToProps = (state, ownProps) => {
   return {

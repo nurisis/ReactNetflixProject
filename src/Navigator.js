@@ -10,16 +10,25 @@ import ScheduleScreen from './view/screen/main/Schedule'
 import SavedScreen from './view/screen/main/Saved'
 import MoreScreen from './view/screen/main/More'
 import DetailsScreen from './view/screen/etc/Detail'
+<<<<<<< HEAD
 import LoginScreen from './view/screen/etc/Login'
 
 
+=======
+import VideoDetailScreen from './view/screen/etc/VideoDetail'
+>>>>>>> tak
 
 const MoreStack = createStackNavigator({
     More: { screen: MoreScreen },
     Details: { screen: DetailsScreen },
+    VideoDetail : { screen: VideoDetailScreen },
   });
   
+<<<<<<< HEAD
 const bottomTabNavigator = createBottomTabNavigator(
+=======
+  export default createAppContainer(createBottomTabNavigator(
+>>>>>>> tak
     {
       Home: HomeScreen,
       Search: SearchScreen,
@@ -27,6 +36,7 @@ const bottomTabNavigator = createBottomTabNavigator(
       Saved: SavedScreen,
       More: { screen: MoreStack },
     },
+    
     {
       defaultNavigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ focused, tintColor }) => {
@@ -43,12 +53,13 @@ const bottomTabNavigator = createBottomTabNavigator(
           } else if (routeName === 'More') {
             iconName = `ios-options`;
           }
-  
+
           // You can return any component that you like here! We usually use an
           // icon component from react-native-vector-icons
           return <Ionicons name={iconName} size={25} color={tintColor} />;
         },
       }),
+      
       tabBarOptions: {
         activeTintColor: 'tomato',
         inactiveTintColor: 'gray',

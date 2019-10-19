@@ -5,8 +5,10 @@ import { Card } from 'react-native-elements'
 // import {VideoPlayer} from 'react-native-video-player'
 import { randomUsers } from '../etc/Util';
 import Video from 'react-native-af-video-player'
+import AppStyle  from '../../../style/AppStyle';
 
 const url = 'http://dkadf2kfhfqn2.cloudfront.net/videos/hykwf678233_2019-10-04_13:29:23.mp4'
+
 
 class Home extends React.Component {
 
@@ -84,11 +86,13 @@ class Home extends React.Component {
                     horizontal
                     style={styles.flatlist}
                     renderItem={({ item }) =>
+                    <TouchableOpacity onPress={()=>this.videoDetailMove()}>
                         <Card
                             image = {{uri : item.avatar}}
                             containerStyle = {{ width:110, flexGrow:0}}
                             style = {styles.card}>
                         </Card>
+                    </TouchableOpacity>
                     }
                 />
 
