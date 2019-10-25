@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text,Button,AsyncStorage } from 'react-native';
+import { View, Text,Button,AsyncStorage,TextInput } from 'react-native';
 import { StackActions, NavigationActions} from 'react-navigation';
 import { connect } from 'react-redux';
 
@@ -8,6 +8,7 @@ class Login extends React.Component {
     constructor(props){
         super(props)
         this.attemptLogin = this.attemptLogin.bind(this)
+        this.state = {nickName:''}
       
     }
     attemptLogin(){
@@ -16,16 +17,26 @@ class Login extends React.Component {
 
         //완료되면 토큰을 얻고 홈으로 이동
         var token = "sometokenregex"
-        this.props.authSuccess(token);
+        this.props.authSuccess(token,this.state.nickName);
     }
 
 
 
     render() {
+      
       return (
         <View style={{ flex: 1, backgroundColor:'#ffffff',justifyContent: 'center', alignItems: 'center' }}>
-          <Text children="Redux Login Example"/>
-          <Text children="Click on login to continue "/>
+          <Text>닉네임을 입력하세요.{'\n'}</Text>
+          <TextInput
+          style={{height: 40,borderRadius: 8,width:240,
+            borderWidth: 1.5,
+            borderColor: '#d6d7da'}}
+          placeholder="닉네임"
+          onChangeText={(nickName) => this.setState({nickName})}
+          value={this.state.nickName}
+          />
+          <Text>{'\n'}{'\n'}</Text>
+
           <Button color="#901000" title="Login" onPress={this.attemptLogin} />
         
         </View>
@@ -33,10 +44,10 @@ class Login extends React.Component {
     }
   };
 
-  const resetAction = StackActions.reset({
-    index: 0,
-    actions: [NavigationActions.navigate({ routeName: 'Bottom' })],
-  });
+  // const resetAction = StackActions.reset({
+  //   index: 0,
+  //   actions: [NavigationActions.navigate({ routeName: 'Bottom' })],
+  // });
 
 
 
@@ -45,14 +56,18 @@ class Login extends React.Component {
        
     }
   }
-  const actionReducer = (action,payload) => ({action,payload})
 
   export const actionCreator = (type, payload = null) => ({type, payload})
+  
   const mapDispatchToProps = (dispatch, ownProps) => {
       return {
-            authSuccess: (token) => {
-                AsyncStorage.multiSet([['token',token], ['authenticated','1']])
+            authSuccess: (token,nickName) => {
+              
+                AsyncStorage.multiSet([['token',token],['nickName',nickName], ['authenticated','1'], ['profiles', [] ] ])
                 dispatch(actionCreator('LOGIN_SUCCESS'))
+                dispatch(actionCreator('ADD_NICKNAME',nickName))
+                
+
             }
       }
   }
@@ -64,6 +79,22 @@ class Login extends React.Component {
               return {...state,authenticated:false}
           case 'APP_LOADED':
               return {...state,app_started:true}
+          default:
+              return state
+      }
+  }
+
+  export const userStateReducer = (state = {nickName:'',profiles:[{key:'1',title:'프로필 추가 +'}]},{type,payload}) => {
+
+        switch(type){
+          case 'ADD_NICKNAME':
+              return {...state,nickName:payload}
+          case 'ADD_PROFILE':
+              return {...state,profiles:[payload]}
+          case 'UPDATE_PROFILE':
+              return {...state,profiles:[payload]}
+          case 'DELETE_PROFILE':
+              return {...state,profiles:[payload]}
           default:
               return state
       }

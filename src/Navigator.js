@@ -9,26 +9,28 @@ import SearchScreen from './view/screen/main/Search'
 import ScheduleScreen from './view/screen/main/Schedule'
 import SavedScreen from './view/screen/main/Saved'
 import MoreScreen from './view/screen/main/More'
-import DetailsScreen from './view/screen/etc/Detail'
+import ProfileAddScreen from './view/screen/etc/ProfileAdd'
 import LoginScreen from './view/screen/etc/Login'
 import VideoDetailScreen from './view/screen/etc/VideoDetail'
 
 
 const MoreStack = createStackNavigator({
     More: { screen: MoreScreen },
-    Details: { screen: DetailsScreen },
+  
     VideoDetail : { screen: VideoDetailScreen },
-  });
+
+  },{ headerMode: 'none'});
   
 const bottomTabNavigator = createBottomTabNavigator(
     {
-      Home: HomeScreen,
+      More: { screen: MoreStack },
       Search: SearchScreen,
       Schedule: ScheduleScreen,
       Saved: SavedScreen,
-      More: { screen: MoreStack },
+     
+      Home: HomeScreen,
     },
-    
+   
     {
       defaultNavigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ focused, tintColor }) => {
@@ -63,7 +65,7 @@ const bottomTabNavigator = createBottomTabNavigator(
 const RootStack =  (authenticated) => createStackNavigator({
     Login: { screen: LoginScreen },
     Bottom: {screen:bottomTabNavigator},
-
+    ProfileAdd: { screen: ProfileAddScreen},
   }, { headerMode: 'none' ,
        initialRouteName:authenticated ? 'Bottom' : 'Login'
   });

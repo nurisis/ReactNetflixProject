@@ -21,11 +21,7 @@ class App extends React.Component {
 
     const {app_started, authenticated } = this.props.authState;
     return app_started ? this._renderAppRoot(authenticated) : this._renderSplash(app_started);
-    // return  this._renderSplash(app_started);
-
-    // return (
-    //   <Navigator/>
-    // );
+   
   }
 
   _renderAppRoot(authenticated){
@@ -50,10 +46,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     async checkLogin(){
       const isLoggin = await AsyncStorage.getItem('authenticated').catch(e=>console.log(e))
-    console.log(isLoggin)
-
+   
+      const nickName = await AsyncStorage.getItem('nickName').catch(e=>console.log(e))
         if(isLoggin){
           dispatch(actionCreator('LOGIN_SUCCESS'))
+          
+          dispatch(actionCreator('ADD_NICKNAME',nickName))
+
         }
         dispatch(actionCreator('APP_LOADED'))
 
