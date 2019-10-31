@@ -10,6 +10,8 @@ import ScheduleScreen from './view/screen/main/Schedule'
 import SavedScreen from './view/screen/main/Saved'
 import MoreScreen from './view/screen/main/More'
 import ProfileAddScreen from './view/screen/etc/ProfileAdd'
+import ProfileAdminScreen from './view/screen/etc/ProfileAdmin'
+
 import LoginScreen from './view/screen/etc/Login'
 import VideoDetailScreen from './view/screen/etc/VideoDetail'
 
@@ -66,6 +68,7 @@ const RootStack =  (authenticated) => createStackNavigator({
     Login: { screen: LoginScreen },
     Bottom: {screen:bottomTabNavigator},
     ProfileAdd: { screen: ProfileAddScreen},
+    ProfileAdmin: { screen: ProfileAdminScreen},
   }, { headerMode: 'none' ,
        initialRouteName:authenticated ? 'Bottom' : 'Login'
   });

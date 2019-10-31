@@ -63,7 +63,7 @@ class Login extends React.Component {
       return {
             authSuccess: (token,nickName) => {
               
-                AsyncStorage.multiSet([['token',token],['nickName',nickName], ['authenticated','1'], ['profiles', [] ] ])
+                AsyncStorage.multiSet([['token',token],['nickName',nickName], ['authenticated','1'] ])
                 dispatch(actionCreator('LOGIN_SUCCESS'))
                 dispatch(actionCreator('ADD_NICKNAME',nickName))
                 
@@ -84,17 +84,21 @@ class Login extends React.Component {
       }
   }
 
-  export const userStateReducer = (state = {nickName:'',profiles:[{key:'1',title:'프로필 추가 +'}]},{type,payload}) => {
+  export const userStateReducer = (state = {nickName:'',profiles:[]},{type,payload}) => {
 
         switch(type){
           case 'ADD_NICKNAME':
               return {...state,nickName:payload}
           case 'ADD_PROFILE':
-              return {...state,profiles:[payload]}
+              return {...state,profiles:[...state.profiles,payload]}
+          case 'SET_PROFILE':
+              return {...state,profiles:payload}
           case 'UPDATE_PROFILE':
               return {...state,profiles:[payload]}
           case 'DELETE_PROFILE':
               return {...state,profiles:[payload]}
+          case 'RESET':
+              return {nickName:'',profiles:[]}
           default:
               return state
       }

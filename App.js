@@ -48,10 +48,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       const isLoggin = await AsyncStorage.getItem('authenticated').catch(e=>console.log(e))
    
       const nickName = await AsyncStorage.getItem('nickName').catch(e=>console.log(e))
+
+      const profiles = await AsyncStorage.getItem('profiles').catch(e=>console.log(e))
+
         if(isLoggin){
           dispatch(actionCreator('LOGIN_SUCCESS'))
           
           dispatch(actionCreator('ADD_NICKNAME',nickName))
+          
+          if(profiles && profiles.length){
+              dispatch(actionCreator('SET_PROFILE',JSON.parse(profiles)))
+          }
 
         }
         dispatch(actionCreator('APP_LOADED'))

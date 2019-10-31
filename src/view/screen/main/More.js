@@ -37,7 +37,7 @@ class More extends React.Component {
     onPressAction = (key) => {
       this.setState((state) => {
         //프로필 추가이면
-        if(key === '1'){
+        if(key === 0){
           this.props.navigation.navigate('ProfileAdd');
           return
         }
@@ -80,13 +80,13 @@ class More extends React.Component {
           <View  style={{height:100}}>
             <FlatList
                
-                data={this.props.userState.profiles}
+                data={[...this.props.userState.profiles,{key:0,title:'프로필 추가 +'}]}
                 renderItem={({ item }) => (
                   
                   this.renderRow(item)
                     
                 )}
-                keyExtractor={item => item.key}
+                keyExtractor={item => String(item.key)}
                 extraData={this.state.selected}
                 horizontal={true}
             />
@@ -96,7 +96,7 @@ class More extends React.Component {
           <Button
             color="#808080"
             title="프로필 관리"
-            // onPress={ () =>this.props.navigation.navigate('ProfileAdd')}
+            onPress={ () =>this.props.navigation.navigate('ProfileAdmin')}
           />
 
 
@@ -141,13 +141,24 @@ class More extends React.Component {
   const mapDispatchToProps = (dispatch, ownProps) => {
       return {
             authLogout: () => {
-                AsyncStorage.multiRemove(['token','nickName','authenticated']);
+                AsyncStorage.multiRemove(['token','nickName','authenticated','profiles']);
                 dispatch(actionCreator('LOGOUT'))
+                dispatch(actionCreator('RESET'))
+          
             }
       }
   }
 
-
+// const fetchAllItems = async () => {
+//     try {
+//         const keys = await AsyncStorage.getAllKeys()
+//         const items = await AsyncStorage.multiGet(keys)
+//         console.log(items);
+//         return items
+//     } catch (error) {
+//         console.log(error, "problemo")
+//     }
+// }
 
   export default connect(mapStateToProps, mapDispatchToProps)(More);
 
