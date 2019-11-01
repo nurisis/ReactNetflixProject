@@ -67,16 +67,17 @@ class ProfileAdd extends React.Component {
             onPress: () => console.log('Cancel Pressed'),
             style: 'cancel',
           },
-          {text: '프로필 삭제', onPress: () => 
-        
-          
-            this.props.profileDel(this.state.editProfile.key)
+          {text: '프로필 삭제', onPress: () => {
 
-        },
+            this.props.profileDel(this.state.editProfile.key)
+            this.props.navigation.goBack(null)
+          }
+
+          },
         ],
         {cancelable: false},
     );
-        this.props.navigation.goBack(null);
+      
     }
   
   
