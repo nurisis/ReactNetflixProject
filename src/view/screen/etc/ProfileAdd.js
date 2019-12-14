@@ -1,13 +1,20 @@
 import React from 'react';
-import { Alert,Button, View, Text,TextInput, StyleSheet  } from 'react-native';
+import {Image, Alert,Button, View, Text,TextInput, StyleSheet,CheckBox,TouchableOpacity  } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import {AsyncStorage} from 'react-native';
 import { connect } from 'react-redux';
+import ImagePicker from 'react-native-image-picker';
 
 
-
-
-
+// More info on all the options is below in the API Reference... just some common use cases shown here
+const options = {
+  title: 'Select Avatar',
+  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
 
 
 class ProfileAdd extends React.Component {
@@ -17,11 +24,16 @@ class ProfileAdd extends React.Component {
         super(props)
         this.attemptSave = this.attemptSave.bind(this)
         this.attemptDel = this.attemptDel.bind(this)
+        this.callGallery = this.callGallery.bind(this)
         // this.profileDel = this.profileDel.bind(this)
 
         
         const editProfile = this.props.navigation.getParam('editProfile',null);
-        this.state = {title: editProfile ? editProfile.title : '', editProfile:editProfile  }
+        this.state = {title: editProfile ? editProfile.title : '',
+                      editProfile:editProfile ,
+                      checked:false,
+                      avatarSource: editProfile ? editProfile.source : null,
+                    }
      
     }
 
@@ -33,7 +45,7 @@ class ProfileAdd extends React.Component {
         
 
          if(this.state.editProfile){
-            this.props.profileEdit(this.state.title,this.state.editProfile.key)
+            this.props.profileEdit({title:this.state.title, key:this.state.editProfile.key,source:this.state.avatarSource})
 
          }else {
 
@@ -41,10 +53,12 @@ class ProfileAdd extends React.Component {
             let newProfile;
 
             if(profiles && profiles.length){
-                  newProfile = {key: profiles[profiles.length-1].key + 1 , title:this.state.title};
+                  newProfile = {key: profiles[profiles.length-1].key + 1 , title:this.state.title,
+                                      source:this.state.avatarSource
+                               };
 
             }else{
-                  newProfile = {key: 1 , title:this.state.title};
+                  newProfile = {key: 1 , title:this.state.title,source:null};
             }
             
 
@@ -80,7 +94,22 @@ class ProfileAdd extends React.Component {
       
     }
   
-  
+    callGallery(){
+      
+          // Open Image Library:
+        ImagePicker.launchImageLibrary(options, (response) => {
+          // Same code as in above section!
+          // const source = { uri: response.uri };
+          const source = { uri : 'data:image/jpeg;base64,'+response.data };
+          this.setState({
+            avatarSource: source,
+          });
+        
+         
+        });
+
+
+    }
 
     render() {
       return (
@@ -92,19 +121,21 @@ class ProfileAdd extends React.Component {
 
                 
                   <View style={styles.buttonContainer}>
-                    <Button title="취소" 
+                    <Button title="취소"
+                    color="black" 
                     onPress={() => {this.props.navigation.goBack(null)}} 
                     />
                   </View>
                   <View style={styles.buttonContainer}>
                     <Button title="저장" 
+                    color="gray" 
                     onPress={this.attemptSave}
                     />
                   </View>
               </View>
 
               <View style={styles.bodyContainer}>
-                <Text>이름{'\n'}</Text>
+                <Text style={styles.colorWhite}>이름</Text>
                 <TextInput
                 style={styles.textInput}
               
@@ -112,11 +143,80 @@ class ProfileAdd extends React.Component {
                 value={this.state.title}
                 />
 
-                <Text>{'\n'}{'\n'}</Text>
-
-                {this.state.editProfile ?  <Button title="프로필 삭제" 
-                  onPress={this.attemptDel} ></Button> : null }
                
+                <TouchableOpacity style={styles.horizonView}
+                onPress={() => this.setState({ checked: !this.state.checked })}
+                >
+                  <Text style={[styles.colorWhite,{marginTop:5,fontSize:16}]}>어린이용</Text>
+
+                  <CheckBox
+                  style={{paddingRight:45,alignItems:'center'}}
+                  value={this.state.checked}
+                  onValueChange={() => this.setState({ checked: !this.state.checked })}
+                  />
+                </TouchableOpacity>
+
+                <View
+                    style={styles.divider}
+                  />
+
+                  <TouchableOpacity style={styles.horizonView}
+                    onPress={this.callGallery}
+                    >
+                      <Text style={[styles.colorWhite,{marginTop:5,fontSize:16}]}>이미지</Text>
+
+                      <View style={{width: 61, height: 61, backgroundColor:'red',marginTop:-15,marginBottom:-15}}>
+                            <Image source={this.state.avatarSource} style={styles.uploadAvatar} />
+
+                      </View>
+                </TouchableOpacity>
+
+                <View
+                    style={styles.divider}
+                  />
+           
+                {this.state.editProfile ?
+                
+                  <View>
+                  
+                  <View
+                    style={styles.divider}
+                  />
+
+                  <View style={styles.horizonView}
+                   
+                    >
+                      <Text style={[styles.colorWhite,{marginTop:5,fontSize:16}]}></Text>
+
+                     
+                </View>
+
+
+                  <View
+                    style={styles.divider}
+                  />
+
+
+               
+                  
+                  <TouchableOpacity style={styles.horizonView}
+                    onPress={this.attemptDel}
+                    >
+                      <Text style={[styles.colorWhite,{marginTop:5,fontSize:16}]}>프로필 삭제</Text>
+
+
+                </TouchableOpacity>
+                <View
+                    style={styles.divider}
+                />
+                  
+                  
+                </View>
+                  
+                  
+                  : null }
+                  
+                  
               </View>
         </View>
 
@@ -150,10 +250,10 @@ const mapStateToProps = (state, ownProps) => {
                   dispatch(actionCreator('SET_PROFILE',deletedProfiles))
               });
             },
-            profileEdit: (title,key) => {
+            profileEdit: (editProfile) => {
 
 
-                this._editProfile(title,key).then(editedProfiles => {
+                this._editProfile(editProfile).then(editedProfiles => {
                   dispatch(actionCreator('SET_PROFILE',editedProfiles))
               });
             }
@@ -207,7 +307,7 @@ _deleteProfile = async (key) => {
   }
 };
 
-_editProfile = async (title,key) => {
+_editProfile = async (editProfile) => {
   try {
    
 
@@ -220,8 +320,9 @@ _editProfile = async (title,key) => {
     
    
     profiles = profiles.filter( profile => {
-        if(profile.key === key) {
-            profile.title = title
+        if(profile.key === editProfile.key) {
+            profile.title = editProfile.title
+            profile.source = editProfile.source
         }
         return profile
             
@@ -244,29 +345,63 @@ export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(Profi
 
 const styles = StyleSheet.create({
   headContainer: {
-    // flex: 1,
+    
     flexDirection: 'row',
     alignItems: 'center',
-    height:'5%',
+    // height:'8%',
     justifyContent: 'center',
     // justifyContent: 'space-around'
+    backgroundColor:'#2B2D2F'  
   },
   bodyContainer:{
-    padding: 10,
+    padding: 18,
+    width:'100%',
     flex: 1,
-    alignItems: 'center',
-    height:'15%',
-    justifyContent: 'flex-start',
+    // alignItems: 'center',
+    // height:'15%',
+    
+    // justifyContent: 'flex-start',
+    backgroundColor:'#2B2D2F'
+    
   },
   textInput : {
-    height: 40,
-    borderRadius: 8,
-    width:240,
-    borderWidth: 1.5,
-    borderColor: '#d6d7da'
+    paddingBottom:0,
+    color:'white',
+    borderWidth: 1,
+    borderColor: 'transparent',
+    borderBottomColor:'white'
+    
   },
   buttonContainer : {
-    flex: 1
+    
+    height:'100%',
+    flex: 1,
+    
   },
+  colorWhite :{
+    color:'white',
+   
+  },
+  horizonView:{
+    paddingTop: 16,
+    paddingBottom: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    
+    
+
+  },
+  divider:{
+    borderBottomColor: 'gray',
+    borderBottomWidth: 1,
+  },
+  uploadAvatar:{
+   
+    flex:1,
+    width:'100%',
+    height:'100%',
+
+   }
+
  
 });

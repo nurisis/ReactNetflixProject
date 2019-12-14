@@ -7,7 +7,7 @@ import App from './App';
 import {name as appName} from './app.json';
 import {Provider} from 'react-redux';
 import {combineReducers,createStore} from 'redux';
-import {authStateReducer,userStateReducer} from './src/view/screen/etc/Login'
+import {authStateReducer,userStateReducer} from './src/view/screen/etc/store/Reducer'
 import Reactotron from './ReactotronConfig'
 
 const reducuers = combineReducers({

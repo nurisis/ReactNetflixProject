@@ -25,12 +25,12 @@ const MoreStack = createStackNavigator({
   
 const bottomTabNavigator = createBottomTabNavigator(
     {
-      More: { screen: MoreStack },
+      Home: HomeScreen,
       Search: SearchScreen,
       Schedule: ScheduleScreen,
       Saved: SavedScreen,
-     
-      Home: HomeScreen,
+      More: { screen: MoreStack },
+   
     },
    
     {
@@ -65,11 +65,24 @@ const bottomTabNavigator = createBottomTabNavigator(
   
   
 const RootStack =  (authenticated) => createStackNavigator({
-    Login: { screen: LoginScreen },
-    Bottom: {screen:bottomTabNavigator},
-    ProfileAdd: { screen: ProfileAddScreen},
-    ProfileAdmin: { screen: ProfileAdminScreen},
-  }, { headerMode: 'none' ,
+    Login: { screen: LoginScreen ,navigationOptions:{
+          header:null
+     } },
+    Bottom: {screen:bottomTabNavigator,navigationOptions:{
+          header:null
+     } },
+    ProfileAdd: { screen: ProfileAddScreen,navigationOptions:{
+          header:null
+     } },
+    ProfileAdmin: { screen: ProfileAdminScreen,
+                    navigationOptions:{headerTitle: '프로필 관리', headerStyle: {
+                      backgroundColor: 'black'
+                    }, headerTintColor: 'white'},
+                   
+                
+                  },
+  }, { 
+        headerLayoutPreset: 'center',
        initialRouteName:authenticated ? 'Bottom' : 'Login'
   });
 

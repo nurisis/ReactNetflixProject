@@ -14,6 +14,7 @@
     "react-native-af-video-player": "^0.2.1",
     "react-native-elements": "^1.2.3",
     "react-native-gesture-handler": "^1.4.1",
+    "react-native-image-picker": "^1.1.0",
     "react-native-keep-awake": "^4.0.0",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-orientation": "^3.1.3",
