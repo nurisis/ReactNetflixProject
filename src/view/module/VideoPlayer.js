@@ -12,13 +12,13 @@ export default class VideoPlayer extends React.Component {
 
     constructor(props) {
         super(props);
-    
-        // init state variables
+
         this.state = {
           rate: 1,
           volume: 1,
           muted: true,
           resizeMode: this.props.resizeMode,
+          
           duration: 0.0,
           currentTime: 0.0,
           paused: false,
@@ -26,6 +26,7 @@ export default class VideoPlayer extends React.Component {
           pausedText: 'PAUSE',
           hideControls: false
         };
+
     
         this.video = Video;
     }
@@ -112,10 +113,15 @@ export default class VideoPlayer extends React.Component {
     }
 
     render() {
+
+
+      
         return (
             <SafeAreaView>
+          
+          <View style={ this.styles.fullScreen}>
             <TouchableWithoutFeedback
-            style={this.styles.fullScreen}
+            style={ this.styles.fullScreen}
             onPress = {() => this.setState({paused: !this.state.paused})}
             // onPress={() => this.onPressVideo()}
             >
@@ -137,7 +143,7 @@ export default class VideoPlayer extends React.Component {
                 repeat={true}
                 />
             </TouchableWithoutFeedback>
-
+            </View>
             {
                   !this.state.hideControls ?
                   (
@@ -192,12 +198,17 @@ export default class VideoPlayer extends React.Component {
     }
 
     styles = StyleSheet.create({
-
+      // fullScreen : {
+      //   flex: 1,
+      //   width : 360,
+      //   height : 360
+      // },
         fullScreen: {
             flexGrow : 0,
             backgroundColor: 'black',
             height : this.props.videoHeight,
-            marginTop : 8
+            marginTop : 8,
+  
           },
           controls: {
             flexGrow : 0,

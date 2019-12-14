@@ -14,6 +14,7 @@ import ProfileAdminScreen from './view/screen/etc/ProfileAdmin'
 
 import LoginScreen from './view/screen/etc/Login'
 import VideoDetailScreen from './view/screen/etc/VideoDetail'
+import VideoTheaterScreen from './view/screen/etc/VideoTheater'
 
 
 const MoreStack = createStackNavigator({
@@ -78,9 +79,12 @@ const RootStack =  (authenticated) => createStackNavigator({
                     navigationOptions:{headerTitle: '프로필 관리', headerStyle: {
                       backgroundColor: 'black'
                     }, headerTintColor: 'white'},
-                   
-                
                   },
+
+    VideoTheater: { screen: VideoTheaterScreen,navigationOptions:{
+          header:null 
+      } },
+     
   }, { 
         headerLayoutPreset: 'center',
        initialRouteName:authenticated ? 'Bottom' : 'Login'

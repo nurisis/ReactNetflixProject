@@ -23,8 +23,6 @@ import AppStyle from '../../../style/AppStyle';
 import StringUtil from './StringUtil';
 import dummy from '../../../dummy/dummy';
 
-
-
 randomNumber = 4;
 
 class VideoDetail extends React.Component {
@@ -76,6 +74,12 @@ class VideoDetail extends React.Component {
         });
     };
 
+
+    // //  영화 관람 화면 으로 이동
+    theaterMove = () =>{
+        this.props.navigation.navigate('VideoTheater');
+    };
+
     videoLike = () => {
         this.setState({
             isLike: !(this.state.isLike)
@@ -115,10 +119,6 @@ class VideoDetail extends React.Component {
         this.state.year +="";
         this.state.year = (this.state.year).substring(0,4); 
 
-   
-        
-
-
         //  오름차순
         function sortAscending(list, keyword) {
             return list.sort(function (a, b) {
@@ -152,18 +152,20 @@ class VideoDetail extends React.Component {
             });
         }
 
-        
-
         return (
             <View style={AppStyle.flexCC}>
                 <ScrollView>
-                    <View style={[AppStyle.absolute, { height: 350, width: '100%' }]}>
+                
+                    <View  style={[AppStyle.absolute, { height: 350, width: '100%' }]}>
+                    <TouchableOpacity onPress={() => this.theaterMove()}>
                         <Image source={{ uri: this.state.backgroundImg }} style={{ resizeMode: 'contain', width: '100%', height: 350 }}></Image>
                         <View style={[AppStyle.absolute, { top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' }]}>
                             <Ionicons name="ios-play-circle" size={100} color={AppStyle.white} >
                             </Ionicons>
                         </View>
+                        </TouchableOpacity>
                     </View>
+                
 
                     <View style={[style.container, AppStyle.basePadding, { marginTop: 350 }]}>
                         <View style={[style.descriptonContainer]}>
