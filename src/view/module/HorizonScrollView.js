@@ -14,6 +14,10 @@ export default class HorizonScrollView extends Component {
         super(props);
     }
 
+    videoDetailMove(id){
+        this.props.navigation.navigate('VideoDetail', {movie_id:id})
+    }
+
     render(){
         return (
             <SafeAreaView style={styles.background}>

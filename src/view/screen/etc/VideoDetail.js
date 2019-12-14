@@ -120,6 +120,9 @@ class VideoDetail extends React.Component {
 
     
     render() {
+        const { navigation } = this.props;
+        ToastAndroid.show("ID:"+navigation.getParam("movie_id"), ToastAndroid.LONG)
+
         //  년도
         this.state.year +="";
         this.state.year = (this.state.year).substring(0,4); 
@@ -160,7 +163,6 @@ class VideoDetail extends React.Component {
         return (
             <View style={AppStyle.flexCC}>
                 <ScrollView>
-                
                     <View  style={[AppStyle.absolute, { height: 350, width: '100%' }]}>
                     <TouchableOpacity onPress={() => this.theaterMove()}>
                         <Image source={{ uri: this.state.backgroundImg }} style={{ resizeMode: 'contain', width: '100%', height: 350 }}></Image>
