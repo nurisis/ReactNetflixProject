@@ -24,12 +24,16 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AppStyle from '../../../style/AppStyle';
 import StringUtil from './StringUtil';
 
+import dummy from '../../../dummy/dummy';
+
 
 class VideoDetail extends React.Component {
 
     state = {
-        backgroundImg: require("../../../dummy/img/share.png"),
-        title: "아는형님2",
+        // backgroundImg:    require("../../../dummy/img/share.png"),
+        // title: "아는형님2",
+        backgroundImg: dummy.videos[1].thumNail,
+        title: dummy.videos[0].name,
         year: 2019,
         seasonCount: 4,
         allowAge: "15+",
@@ -92,7 +96,7 @@ class VideoDetail extends React.Component {
                             playTime: 22,
                             title: "게르마늄 팔찌를 찬 여자1",
                             summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-                            thumbnail: require("../../../dummy/img/share.png")
+                            thumbnail: dummy.videos[0].thumNail,
                         },
                         {
                             id: 4,
@@ -297,7 +301,7 @@ class VideoDetail extends React.Component {
             <View style={AppStyle.flexCC}>
                 <ScrollView>
                     <View style={[AppStyle.absolute, { height: 300, width: '100%' }]}>
-                        <ImageBackground source={this.state.backgroundImg} style={{ height: 300 }}>
+                        <ImageBackground source={{uri : dummy.videos[4].thumNail }} style={{ height: 300 }}>
                             <View style={[AppStyle.flexCC]}>
                                 <Ionicons name="ios-play-circle" size={100} color={AppStyle.white} >
                                 </Ionicons>
