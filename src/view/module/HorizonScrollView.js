@@ -25,9 +25,10 @@ export default class HorizonScrollView extends Component {
                     renderItem={({ item }) =>
                     <TouchableOpacity onPress={this.props.onPress}>
                         <Card
-                            image = {{uri : item.avatar}}
+                            // image = {{uri : item.thumbNail}}
+                            image = {{uri : "https://image.tmdb.org/t/p/w500"+item.poster_path}}
                             containerStyle = {{ width:110, flexGrow:0}}
-                            style = {styles.card}>
+                            style = {styles.card}> 
                         </Card>
                     </TouchableOpacity>
                     }
@@ -49,12 +50,10 @@ const styles = StyleSheet.create({
         paddingLeft: 16
     },
     background : {
-        // backgroundColor : '#3C3D3D',
-        paddingBottom : 16,
         flex : 1
     },
     card : {
-        // color : 'black'
+        color : 'pink'
     },
     flatlist : {
       flexGrow : 0,

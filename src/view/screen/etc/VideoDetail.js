@@ -14,7 +14,8 @@ import {
     TouchableHighlight,
     PixelRatio,
     Button,
-    Share
+    Share,
+    ToastAndroid
 } from 'react-native';
 import ShareBtn from '../../module/ShareBtn';
 import DibsBtn from '../../module/DibsBtn';
@@ -24,9 +25,13 @@ import StringUtil from './StringUtil';
 import dummy from '../../../dummy/dummy';
 
 randomNumber = 4;
+// 영화 상세 정보 API : https://api.themoviedb.org/3/movie/{movie_id}?api_key=bc1ebe6e0dd688063e0bbf7d331610dc&language=en-US
+
+
+// const { navigation } = this.props;
+// const movie_id = navigation.getParam("movie_id");
 
 class VideoDetail extends React.Component {
-
     state = {
         backgroundImg: dummy.videos[randomNumber].thumbNail,
         title: dummy.videos[randomNumber].name,
