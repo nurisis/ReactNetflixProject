@@ -152,7 +152,8 @@
           "playList": [
             {
               "id": "한회아이디",
-              "thumbNail": "",
+              "title" : "1화",
+              "thumbNail": "http://image.auction.co.kr/itemimage/16/c4/f2/16c4f2c3e6.jpg",
               "videoPath": "",
               "sequence": 1,
               "comeOutDate": 20190202,
@@ -161,7 +162,8 @@
             },
             {
               "id": "한회아이디",
-              "thumbNail": "",
+              "title" : "2화",
+              "thumbNail": "http://image.auction.co.kr/itemimage/16/c4/f2/16c4f2c3e6.jpg",
               "videoPath": "",
               "sequence": 2,
               "comeOutDate": 20190302,
@@ -170,7 +172,8 @@
             },
             {
               "id": "한회아이디",
-              "thumbNail": "",
+              "title" : "3화",
+              "thumbNail": "http://image.auction.co.kr/itemimage/16/c4/f2/16c4f2c3e6.jpg",
               "videoPath": "",
               "sequence": 3,
               "comeOutDate": 20190402,
@@ -179,7 +182,8 @@
             },
             {
               "id": "한회아이디",
-              "thumbNail": "",
+              "title" : "4화",
+              "thumbNail": "http://image.auction.co.kr/itemimage/16/c4/f2/16c4f2c3e6.jpg",
               "videoPath": "",
               "sequence": 4,
               "comeOutDate": 20190402,
@@ -188,7 +192,8 @@
             },
             {
               "id": "한회아이디",
-              "thumbNail": "",
+              "title" : "5화",
+              "thumbNail": "http://image.auction.co.kr/itemimage/16/c4/f2/16c4f2c3e6.jpg",
               "videoPath": "",
               "sequence": 5,
               "comeOutDate": 20190502,
@@ -197,7 +202,8 @@
             },
             {
               "id": "한회아이디",
-              "thumbNail": "",
+              "title" : "6화",
+              "thumbNail": "http://image.auction.co.kr/itemimage/16/c4/f2/16c4f2c3e6.jpg",
               "videoPath": "",
               "sequence": 6,
               "comeOutDate": 20190602,
@@ -206,7 +212,8 @@
             },
             {
               "id": "한회아이디",
-              "thumbNail": "",
+              "title" : "7화",
+              "thumbNail": "http://image.auction.co.kr/itemimage/16/c4/f2/16c4f2c3e6.jpg",
               "videoPath": "",
               "sequence": 7,
               "comeOutDate": 20190702,
@@ -215,7 +222,8 @@
             },
             {
               "id": "한회아이디",
-              "thumbNail": "",
+              "title" : "8화",
+              "thumbNail": "http://image.auction.co.kr/itemimage/16/c4/f2/16c4f2c3e6.jpg",
               "videoPath": "",
               "sequence": 8,
               "comeOutDate": 20190202,
@@ -224,7 +232,8 @@
             },
             {
               "id": "한회아이디",
-              "thumbNail": "",
+              "title" : "9화",
+              "thumbNail": "http://image.auction.co.kr/itemimage/16/c4/f2/16c4f2c3e6.jpg",
               "videoPath": "",
               "sequence": 9,
               "comeOutDate": 20190302,
@@ -233,7 +242,8 @@
             },
             {
               "id": "한회아이디",
-              "thumbNail": "",
+              "title" : "10화",
+              "thumbNail": "http://image.auction.co.kr/itemimage/16/c4/f2/16c4f2c3e6.jpg",
               "videoPath": "",
               "sequence": 10,
               "comeOutDate": 20190402,
@@ -242,7 +252,8 @@
             },
             {
               "id": "한회아이디",
-              "thumbNail": "",
+              "title" : "11화",
+              "thumbNail": "http://image.auction.co.kr/itemimage/16/c4/f2/16c4f2c3e6.jpg",
               "videoPath": "",
               "sequence": 11,
               "comeOutDate": 20190402,
@@ -251,7 +262,8 @@
             },
             {
               "id": "한회아이디",
-              "thumbNail": "",
+              "title" : "12화",
+              "thumbNail": "http://image.auction.co.kr/itemimage/16/c4/f2/16c4f2c3e6.jpg",
               "videoPath": "",
               "sequence": 12,
               "comeOutDate": 20190502,
@@ -260,7 +272,8 @@
             },
             {
               "id": "한회아이디",
-              "thumbNail": "",
+              "title" : "13화",
+              "thumbNail": "http://image.auction.co.kr/itemimage/16/c4/f2/16c4f2c3e6.jpg",
               "videoPath": "",
               "sequence": 13,
               "comeOutDate": 20190602,
@@ -269,7 +282,8 @@
             },
             {
               "id": "한회아이디",
-              "thumbNail": "",
+              "title" : "14화",
+              "thumbNail": "http://image.auction.co.kr/itemimage/16/c4/f2/16c4f2c3e6.jpg",
               "videoPath": "",
               "sequence": 14,
               "comeOutDate": 20190702,

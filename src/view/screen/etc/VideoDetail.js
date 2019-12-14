@@ -25,7 +25,7 @@ import dummy from '../../../dummy/dummy';
 
 
 
-randomNumber = 1;
+randomNumber = 4;
 
 class VideoDetail extends React.Component {
 
@@ -49,104 +49,7 @@ class VideoDetail extends React.Component {
         downloadVisible: false,
 
         // 시즌 별 리스트 데이터
-        seasonInfo : this.state.seasonInfo,
-
-        // list: {
-        //     type: "series",
-        //     seasonList: [
-        //         {
-        //             season: 2,
-        //             viodeos: [
-        //                 {
-        //                     id: 1,
-        //                     order: 1,
-        //                     uploadDate: "20190806",
-        //                     playTime: 88,
-        //                     title: "게르마늄 팔찌를 찬 여자1",
-        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-        //                     thumbnail: require("../../../dummy/img/share.png")
-        //                 },
-        //                 {
-        //                     id: 3,
-        //                     order: 3,
-        //                     uploadDate: "20190811",
-        //                     playTime: 11,
-        //                     title: "게르마늄 팔찌를 찬 여자3",
-        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-        //                     thumbnail: require("../../../dummy/img/share.png")
-        //                 },
-        //                 {
-        //                     id: 2,
-        //                     order: 2,
-        //                     uploadDate: "20190809",
-        //                     playTime: 88,
-        //                     title: "게르마늄 팔찌를 찬 여자2",
-        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-        //                     thumbnail: require("../../../dummy/img/share.png")
-        //                 }
-        //             ]
-        //         },
-        //         {
-        //             season: 1,
-        //             viodeos: [
-        //                 {
-        //                     id: 1,
-        //                     order: 1,
-        //                     uploadDate: "20190806",
-        //                     playTime: 22,
-        //                     title: "게르마늄 팔찌를 찬 여자1",
-        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-        //                     thumbnail: dummy.videos[0].thumNail,
-        //                 },
-        //                 {
-        //                     id: 4,
-        //                     order: 4,
-        //                     uploadDate: "20190806",
-        //                     playTime: 22,
-        //                     title: "게르마늄 팔찌를 찬 여자4",
-        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-        //                     thumbnail: require("../../../dummy/img/share.png")
-        //                 },
-        //                 {
-        //                     id: 6,
-        //                     order: 6,
-        //                     uploadDate: "20190806",
-        //                     playTime: 99,
-        //                     title: "게르마늄 팔찌를 찬 여자6",
-        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-        //                     thumbnail: require("../../../dummy/img/share.png")
-        //                 },
-        //                 {
-        //                     id: 5,
-        //                     order: 5,
-        //                     uploadDate: "20190806",
-        //                     playTime: 181,
-        //                     title: "게르마늄 팔찌를 찬 여자5",
-        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-        //                     thumbnail: require("../../../dummy/img/share.png")
-        //                 },
-        //                 {
-        //                     id: 3,
-        //                     order: 3,
-        //                     uploadDate: "20190811",
-        //                     playTime: 88,
-        //                     title: "게르마늄 팔찌를 찬 여자3",
-        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-        //                     thumbnail: require("../../../dummy/img/share.png")
-        //                 },
-        //                 {
-        //                     id: 2,
-        //                     order: 2,
-        //                     uploadDate: "20190809",
-        //                     playTime: 88,
-        //                     title: "게르마늄 팔찌를 찬 여자2",
-        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-        //                     thumbnail: require("../../../dummy/img/share.png")
-        //                 }
-        //             ]
-        //         }
-        //     ]
-        // },
+        seasonInfo : dummy.videos[randomNumber].seasonInfo,
 
         // subTab api 따로
         subTab: ["회차정보", "비슷한 컨텐츠"],
@@ -206,8 +109,15 @@ class VideoDetail extends React.Component {
         }
     };
 
-
+    
     render() {
+        //  년도
+        this.state.year +="";
+        this.state.year = (this.state.year).substring(0,4); 
+
+   
+        
+
 
         //  오름차순
         function sortAscending(list, keyword) {
@@ -235,16 +145,14 @@ class VideoDetail extends React.Component {
         }
 
         //   비디오 목록 정렬
-
         if(this.state.seasonInfo != null){
             sortAscending(this.state.seasonInfo, "part");
-            this.state.seasonInfo.playList.forEach(function (season) {
-                sortAscending(season, "sequence");
+            this.state.seasonInfo.forEach(function (season) {
+                sortAscending(season.playList, "sequence");
             });
         }
-    
-        // // let videoList = this.state.seasonInfo;
-        // let seasonVideoList = this.state.seasonInfo;
+
+        
 
         return (
             <View style={AppStyle.flexCC}>
@@ -391,10 +299,8 @@ class VideoDetail extends React.Component {
                             <View style={[AppStyle.flexRow, { marginTop: 30 }]}>
                                 {/* 회차정보 */}
                                 {this.state.seasonCount != null ? (
-
                                     <TouchableOpacity onPress={() => this.isVideoList("series")}>
                                         <View>
-                                            {
                                                 <Text
                                                     style={[
                                                         AppStyle.flexCC, AppStyle.white, AppStyle.textC,
@@ -408,13 +314,12 @@ class VideoDetail extends React.Component {
                                                             } : ''
                                                     ]}>
                                                     회차정보</Text>
-                                            }
                                         </View>
                                     </TouchableOpacity>
                                 ) : null}
 
                                 {/* 비슷한 컨텐츠 */}
-                                {(this.state.similarVideList != null && this.state.similarVideList.length != 0) && this.state.visibleList == "similar" ? (
+                                {(this.state.similarVideList != null && this.state.similarVideList.length != 0) ? (
                                     <TouchableOpacity onPress={() => this.isVideoList("similar")}>
                                         <View>
                                             {
@@ -443,23 +348,25 @@ class VideoDetail extends React.Component {
                             {
                                 (this.state.seasonCount != null && this.state.visibleList == "series") ? (
                                     <View>
-                                        <View style={style.recommendMovieContainer}> */}
+                                        <View style={style.recommendMovieContainer}>
                                     <FlatList
                                                 scrollEnabled={false}
-                                                data={this.state.seasonInfo[0]}
+                                                data={this.state.seasonInfo[0].playList}
                                                 renderItem={({ item }) => (
                                                     <View style={[AppStyle.flexColumn, AppStyle.basePadding, { paddingTop: 20 }]}>
                                                         <View style={AppStyle.flexRow}>
                                                             <View style={[AppStyle.bgGray, style.iconBtn, { marginLeft: 20 }]}>
                                                                 <Image
                                                                     style={[{ height: 100, width: 100 }]}
-                                                                    source={item.thumbnail}>
+                                                                    source={{
+                                                                        uri : item.thumbNail
+                                                                    } }>
                                                                 </Image>
                                                             </View>
 
                                                             <View style={[AppStyle.flexColumn, { marginLeft: 20 }]}>
                                                                 <Text style={AppStyle.white}>
-                                                                    {item.order}. {item.title}
+                                                                    {item.sequence}. {item.title}
                                                                 </Text>
                                                                 <Text style={AppStyle.gray}>
                                                                     {minConvertPlayTime(item.playTime)}
@@ -569,7 +476,8 @@ const style = StyleSheet.create({
         backgroundColor: "white"
     },
     iconBtnText: {
-        color: "white",
+        fontWeight: 'bold',
+        color: "black",
         marginTop: 3
     },
 

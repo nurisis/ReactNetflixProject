@@ -62,7 +62,8 @@ const style = StyleSheet.create({
         backgroundColor: "white"
     },
     iconBtnText: {
-        color: "white",
+      fontWeight: 'bold',
+        color: "black",
         marginTop: 3
     },
 });
