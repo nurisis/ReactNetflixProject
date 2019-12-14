@@ -16,195 +16,143 @@ import {
     Button,
     Share
 } from 'react-native';
-
 import ShareBtn from '../../module/ShareBtn';
 import DibsBtn from '../../module/DibsBtn';
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AppStyle from '../../../style/AppStyle';
 import StringUtil from './StringUtil';
-
 import dummy from '../../../dummy/dummy';
 
+
+
+randomNumber = 1;
 
 class VideoDetail extends React.Component {
 
     state = {
-        // backgroundImg:    require("../../../dummy/img/share.png"),
-        // title: "아는형님2",
-        backgroundImg: dummy.videos[1].thumNail,
-        title: dummy.videos[0].name,
-        year: 2019,
-        seasonCount: 4,
-        allowAge: "15+",
-        resolution: "HD",
+        backgroundImg: dummy.videos[randomNumber].thumbNail,
+        title: dummy.videos[randomNumber].name,
+        year: dummy.videos[randomNumber].comeoutDate,
+        seasonCount: dummy.videos[randomNumber].totalSeason,
+        allowAge: dummy.videos[randomNumber].allowAge,
+        resolution: dummy.videos[randomNumber].videoQuality,
         sameRate: 98,
-        subTitle: "매주 일요일 새로운 에피소드 공개",
-        subTitle2: "\"워너원 편\"",
-        summary: "교실에 훈훈한 지수가 치솟는다. 순회공연을 마치고 완전체로 돌아온다 워너원. 열한 명의 전학생들이 예능 종합선물세트를 선보인다. 현님들과의 현란한 댄스 대결은 덤!",
+        subTitle: dummy.videos[randomNumber].advertiseTitle,
+        subTitle2: dummy.videos[randomNumber].summaryTitle,
+        summary: dummy.videos[randomNumber].summary,
 
-        isLike: false,
-        isDibs : false,
+        isLike: dummy.videos[randomNumber].myState.evaluate,
+        isDibs: dummy.videos[randomNumber].myState.isDibs,
 
         isEsteem: 1,
         esteem: 1,
         downloadVisible: false,
 
+        // 시즌 별 리스트 데이터
+        seasonInfo : this.state.seasonInfo,
 
-        list: {
-            type: "series",
-            seasonList: [
-                {
-                    season: 2,
-                    viodeos: [
-                        {
-                            id: 1,
-                            order: 1,
-                            uploadDate: "20190806",
-                            playTime: 88,
-                            title: "게르마늄 팔찌를 찬 여자1",
-                            summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-                            thumbnail: require("../../../dummy/img/share.png")
-                        },
-                        {
-                            id: 3,
-                            order: 3,
-                            uploadDate: "20190811",
-                            playTime: 11,
-                            title: "게르마늄 팔찌를 찬 여자3",
-                            summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-                            thumbnail: require("../../../dummy/img/share.png")
-                        },
-                        {
-                            id: 2,
-                            order: 2,
-                            uploadDate: "20190809",
-                            playTime: 88,
-                            title: "게르마늄 팔찌를 찬 여자2",
-                            summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-                            thumbnail: require("../../../dummy/img/share.png")
-                        }
-                    ]
-                },
-                {
-                    season: 1,
-                    viodeos: [
-                        {
-                            id: 1,
-                            order: 1,
-                            uploadDate: "20190806",
-                            playTime: 22,
-                            title: "게르마늄 팔찌를 찬 여자1",
-                            summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-                            thumbnail: dummy.videos[0].thumNail,
-                        },
-                        {
-                            id: 4,
-                            order: 4,
-                            uploadDate: "20190806",
-                            playTime: 22,
-                            title: "게르마늄 팔찌를 찬 여자4",
-                            summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-                            thumbnail: require("../../../dummy/img/share.png")
-                        },
-                        {
-                            id: 6,
-                            order: 6,
-                            uploadDate: "20190806",
-                            playTime: 99,
-                            title: "게르마늄 팔찌를 찬 여자6",
-                            summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-                            thumbnail: require("../../../dummy/img/share.png")
-                        },
-                        {
-                            id: 5,
-                            order: 5,
-                            uploadDate: "20190806",
-                            playTime: 181,
-                            title: "게르마늄 팔찌를 찬 여자5",
-                            summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-                            thumbnail: require("../../../dummy/img/share.png")
-                        },
-                        {
-                            id: 3,
-                            order: 3,
-                            uploadDate: "20190811",
-                            playTime: 88,
-                            title: "게르마늄 팔찌를 찬 여자3",
-                            summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-                            thumbnail: require("../../../dummy/img/share.png")
-                        },
-                        {
-                            id: 2,
-                            order: 2,
-                            uploadDate: "20190809",
-                            playTime: 88,
-                            title: "게르마늄 팔찌를 찬 여자2",
-                            summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
-                            thumbnail: require("../../../dummy/img/share.png")
-                        }
-                    ]
-                }
-            ]
-        },
+        // list: {
+        //     type: "series",
+        //     seasonList: [
+        //         {
+        //             season: 2,
+        //             viodeos: [
+        //                 {
+        //                     id: 1,
+        //                     order: 1,
+        //                     uploadDate: "20190806",
+        //                     playTime: 88,
+        //                     title: "게르마늄 팔찌를 찬 여자1",
+        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
+        //                     thumbnail: require("../../../dummy/img/share.png")
+        //                 },
+        //                 {
+        //                     id: 3,
+        //                     order: 3,
+        //                     uploadDate: "20190811",
+        //                     playTime: 11,
+        //                     title: "게르마늄 팔찌를 찬 여자3",
+        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
+        //                     thumbnail: require("../../../dummy/img/share.png")
+        //                 },
+        //                 {
+        //                     id: 2,
+        //                     order: 2,
+        //                     uploadDate: "20190809",
+        //                     playTime: 88,
+        //                     title: "게르마늄 팔찌를 찬 여자2",
+        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
+        //                     thumbnail: require("../../../dummy/img/share.png")
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             season: 1,
+        //             viodeos: [
+        //                 {
+        //                     id: 1,
+        //                     order: 1,
+        //                     uploadDate: "20190806",
+        //                     playTime: 22,
+        //                     title: "게르마늄 팔찌를 찬 여자1",
+        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
+        //                     thumbnail: dummy.videos[0].thumNail,
+        //                 },
+        //                 {
+        //                     id: 4,
+        //                     order: 4,
+        //                     uploadDate: "20190806",
+        //                     playTime: 22,
+        //                     title: "게르마늄 팔찌를 찬 여자4",
+        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
+        //                     thumbnail: require("../../../dummy/img/share.png")
+        //                 },
+        //                 {
+        //                     id: 6,
+        //                     order: 6,
+        //                     uploadDate: "20190806",
+        //                     playTime: 99,
+        //                     title: "게르마늄 팔찌를 찬 여자6",
+        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
+        //                     thumbnail: require("../../../dummy/img/share.png")
+        //                 },
+        //                 {
+        //                     id: 5,
+        //                     order: 5,
+        //                     uploadDate: "20190806",
+        //                     playTime: 181,
+        //                     title: "게르마늄 팔찌를 찬 여자5",
+        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
+        //                     thumbnail: require("../../../dummy/img/share.png")
+        //                 },
+        //                 {
+        //                     id: 3,
+        //                     order: 3,
+        //                     uploadDate: "20190811",
+        //                     playTime: 88,
+        //                     title: "게르마늄 팔찌를 찬 여자3",
+        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
+        //                     thumbnail: require("../../../dummy/img/share.png")
+        //                 },
+        //                 {
+        //                     id: 2,
+        //                     order: 2,
+        //                     uploadDate: "20190809",
+        //                     playTime: 88,
+        //                     title: "게르마늄 팔찌를 찬 여자2",
+        //                     summary: "게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를게르마늄 팔찌를",
+        //                     thumbnail: require("../../../dummy/img/share.png")
+        //                 }
+        //             ]
+        //         }
+        //     ]
+        // },
 
         // subTab api 따로
         subTab: ["회차정보", "비슷한 컨텐츠"],
 
-        visibleList: "series",
-        similarVideList: [
-            {
-                similarRanking: 3,
-                id: 3,
-                thumbnail: require("../../../dummy/img/share.png")
-            },
-            {
-                similarRanking: 4,
-                id: 4,
-                thumbnail: require("../../../dummy/img/share.png")
-            },
-            {
-                similarRanking: 6,
-                id: 6,
-                thumbnail: require("../../../dummy/img/share.png")
-            },
-            {
-                similarRanking: 1,
-                id: 1,
-                thumbnail: require("../../../dummy/img/share.png")
-            },
-            {
-                similarRanking: 2,
-                id: 2,
-                thumbnail: require("../../../dummy/img/share.png")
-            },
-            {
-                similarRanking: 5,
-                id: 5,
-                thumbnail: require("../../../dummy/img/share.png")
-            },
-            {
-                similarRanking: 6,
-                id: 5,
-                thumbnail: require("../../../dummy/img/share.png")
-            },
-            {
-                similarRanking: 7,
-                id: 5,
-                thumbnail: require("../../../dummy/img/share.png")
-            },
-            {
-                similarRanking: 8,
-                id: 5,
-                thumbnail: require("../../../dummy/img/share.png")
-            },
-            {
-                similarRanking: 9,
-                id: 5,
-                thumbnail: require("../../../dummy/img/share.png")
-            }
-        ],
-
+        visibleList: "similar",
+        similarVideList: dummy.SimilarVideos,
         visibleModal: false,
     };
 
@@ -236,27 +184,27 @@ class VideoDetail extends React.Component {
             visibleModal: !(this.state.visibleModal)
         });
     }
-    
+
     onShare = async () => {
         try {
-          const result = await Share.share({
-            message:
-              'React Native | A framework for building native apps using React',
-          });
-    
-          if (result.action === Share.sharedAction) {
-            if (result.activityType) {
-              // shared with activity type of result.activityType
-            } else {
-              // shared
+            const result = await Share.share({
+                message:
+                    'React Native | A framework for building native apps using React',
+            });
+
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
             }
-          } else if (result.action === Share.dismissedAction) {
-            // dismissed
-          }
         } catch (error) {
-          alert(error.message);
+            alert(error.message);
         }
-      };
+    };
 
 
     render() {
@@ -287,26 +235,26 @@ class VideoDetail extends React.Component {
         }
 
         //   비디오 목록 정렬
-        sortAscending(this.state.list.seasonList, "season");
-        this.state.list.seasonList.forEach(function (season) {
-            sortAscending(season.viodeos, "order");
-        });
 
-        let videoList = this.state.list.seasonList[0];
-
-        // 비슷한 비디오 목록 정렬
-        sortAscending(this.state.similarVideList, "similarRanking");
+        if(this.state.seasonInfo != null){
+            sortAscending(this.state.seasonInfo, "part");
+            this.state.seasonInfo.playList.forEach(function (season) {
+                sortAscending(season, "sequence");
+            });
+        }
+    
+        // // let videoList = this.state.seasonInfo;
+        // let seasonVideoList = this.state.seasonInfo;
 
         return (
             <View style={AppStyle.flexCC}>
                 <ScrollView>
-                    <View style={[AppStyle.absolute, { height: 300, width: '100%' }]}>
-                        <ImageBackground source={{uri : dummy.videos[4].thumNail }} style={{ height: 300 }}>
-                            <View style={[AppStyle.flexCC]}>
-                                <Ionicons name="ios-play-circle" size={100} color={AppStyle.white} >
-                                </Ionicons>
-                            </View>
-                        </ImageBackground>
+                    <View style={[AppStyle.absolute, { height: 350, width: '100%' }]}>
+                        <Image source={{ uri: this.state.backgroundImg }} style={{ resizeMode: 'contain', width: '100%', height: 350 }}></Image>
+                        <View style={[AppStyle.absolute, { top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' }]}>
+                            <Ionicons name="ios-play-circle" size={100} color={AppStyle.white} >
+                            </Ionicons>
+                        </View>
                     </View>
 
                     <View style={[style.container, AppStyle.basePadding, { marginTop: 350 }]}>
@@ -330,11 +278,14 @@ class VideoDetail extends React.Component {
                                         </Text>
                                     </View>
 
-                                    <View style={{ paddingLeft: 5 }}>
-                                        <Text style={style.videoInfo}>
-                                            시즌{this.state.seasonCount} 개
-                                    </Text>
-                                    </View>
+                                    {
+                                        this.state.seasonCount != null ? (
+                                            <View style={{ paddingLeft: 5 }}>
+                                                <Text style={style.videoInfo}>
+                                                    시즌{this.state.seasonCount} 개</Text>
+                                            </View>
+                                        ) : null
+                                    }
 
                                     <View style={{ paddingLeft: 5 }}>
                                         <Text style={[style.videoInfo, AppStyle.fb]}>
@@ -345,16 +296,23 @@ class VideoDetail extends React.Component {
                                 </View>
                             </View>
 
+                                    {/* 영화 줄거리 및 서브 타이틀 텍스트 표시 */}
                             <View style={[{ marginTop: 10, marginBottom: 10 }]}>
-                                <Text style={style.subTitle}>
-                                    {this.state.subTitle}
-                                </Text>
-                                <Text style={[style.subTitle2, { marginTop: 5 }]}>
-                                    {this.state.subTitle2}
-                                </Text>
-                                <Text style={[style.summary, { marginTop: 5 }]}>
-                                    {this.state.summary}
-                                </Text>
+                                {this.state.subTitle != null ? (
+                                    <Text style={style.subTitle}>
+                                        {this.state.subTitle}
+                                    </Text>
+                                ) : null}
+                                {this.state.subTitle2 != null ? (
+                                    <Text style={[style.subTitle2, { marginTop: 5 }]}>
+                                        {this.state.subTitle2}
+                                    </Text>
+                                ) : null}
+                                {this.state.summary != null ? (
+                                    <Text style={[style.summary, { marginTop: 5 }]}>
+                                        {this.state.summary}
+                                    </Text>
+                                ) : null}
                             </View>
 
                             {/* 찜하기 버튼  */}
@@ -370,7 +328,7 @@ class VideoDetail extends React.Component {
                                                 ) : <Ionicons name="ios-checkmark" size={50} color={AppStyle.white} ></Ionicons>
                                         }
                                         <Text style={style.iconBtnText}>
-                                        {StringUtil.DIBS_CONTENT}
+                                            {StringUtil.DIBS_CONTENT}
                                         </Text>
                                     </View>
                                 </TouchableOpacity>
@@ -390,36 +348,39 @@ class VideoDetail extends React.Component {
                                     visible={this.state.visibleModal}
                                     onRequestClose={() => {
                                     }}
-                                    onShow = {() =>{
+                                    onShow={() => {
                                     }}>
+                                    <View style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        backgroundColor: 'rgba(255, 255, 255, 0.4)'
+                                    }}>
+
                                         <View style={{
-                                            width : "100%", 
-                                            height : "100%",
-                                            backgroundColor : 'rgba(255, 255, 255, 0.4)' }}>
+                                            position: 'absolute',
+                                            left: "50%", top: "50%",
+                                            marginLeft: -100, marginTop: -100,
+                                            width: 200, height: 200
+                                        }}>
 
-                                                <View style={{position: 'absolute',
-                                                 left : "50%", top : "50%", 
-                                                 marginLeft : -100, marginTop : -100,
-                                                  width : 200, height : 200}}>
-
-                                                    <View style={[AppStyle.flexCC]}>
-                                                        <View style={[AppStyle.flexRow,AppStyle.flexCSb,{width : '100%'}]}>
-                                                             <Ionicons name="ios-thumbs-up" size={100} />
-                                                             <Ionicons name="ios-thumbs-down" size={100} />
-                                                        </View>
-
-                                                        <TouchableOpacity onPress = {() => {
-                                                                  this.setState({
-                                                                    visibleModal : false
-                                                                })
-                                                            }}>    
-                                                      
-                                                            <Ionicons name="ios-close-circle" size={65} />
-                                                       
-                                                       </TouchableOpacity>
-                                                    </View>
+                                            <View style={[AppStyle.flexCC]}>
+                                                <View style={[AppStyle.flexRow, AppStyle.flexCSb, { width: '100%' }]}>
+                                                    <Ionicons name="ios-thumbs-up" size={100} />
+                                                    <Ionicons name="ios-thumbs-down" size={100} />
                                                 </View>
+
+                                                <TouchableOpacity onPress={() => {
+                                                    this.setState({
+                                                        visibleModal: false
+                                                    })
+                                                }}>
+
+                                                    <Ionicons name="ios-close-circle" size={65} />
+
+                                                </TouchableOpacity>
+                                            </View>
                                         </View>
+                                    </View>
                                 </Modal>
 
                                 {/* 공유하기 버튼 */}
@@ -428,58 +389,64 @@ class VideoDetail extends React.Component {
                             </View>
 
                             <View style={[AppStyle.flexRow, { marginTop: 30 }]}>
-                                <TouchableOpacity onPress={() => this.isVideoList("series")}>
-                                    <View>
-                                        {
-                                            <Text
-                                                style={[
+                                {/* 회차정보 */}
+                                {this.state.seasonCount != null ? (
+
+                                    <TouchableOpacity onPress={() => this.isVideoList("series")}>
+                                        <View>
+                                            {
+                                                <Text
+                                                    style={[
+                                                        AppStyle.flexCC, AppStyle.white, AppStyle.textC,
+                                                        {
+                                                            width: 100
+                                                        },
+                                                        this.state.visibleList == "series" ?
+                                                            {
+                                                                borderTopColor: "red",
+                                                                borderTopWidth: 1,
+                                                            } : ''
+                                                    ]}>
+                                                    회차정보</Text>
+                                            }
+                                        </View>
+                                    </TouchableOpacity>
+                                ) : null}
+
+                                {/* 비슷한 컨텐츠 */}
+                                {(this.state.similarVideList != null && this.state.similarVideList.length != 0) && this.state.visibleList == "similar" ? (
+                                    <TouchableOpacity onPress={() => this.isVideoList("similar")}>
+                                        <View>
+                                            {
+                                                <Text style={[
                                                     AppStyle.flexCC, AppStyle.white, AppStyle.textC,
                                                     {
-                                                        width: 100
+                                                        width: 100,
                                                     },
-                                                    this.state.visibleList == "series" ?
+                                                    this.state.visibleList == "similar" ?
                                                         {
                                                             borderTopColor: "red",
                                                             borderTopWidth: 1,
+
                                                         } : ''
                                                 ]}>
-                                                회차정보
-                                            </Text>
-                                        }
-                                    </View>
-                                </TouchableOpacity>
+                                                    비슷한 콘텐츠</Text>
+                                            }
+                                        </View>
+                                    </TouchableOpacity>
+                                ) : null}
 
-                                <TouchableOpacity onPress={() => this.isVideoList("similar")}>
-                                    <View>
-                                        {
-                                            <Text style={[
-                                                AppStyle.flexCC, AppStyle.white, AppStyle.textC,
-                                                {
-                                                    width: 100,
-                                                },
-                                                this.state.visibleList == "similar" ?
-                                                    {
-                                                        borderTopColor: "red",
-                                                        borderTopWidth: 1,
-
-                                                    } : ''
-                                            ]}>
-                                                비슷한 콘텐츠
-                                            </Text>
-                                        }
-                                    </View>
-                                </TouchableOpacity>
 
                             </View>
 
-                            {/* 비디오 리스트 컨테이너*/}
+                            {/* 시리즈 비디오 리스트 컨테이너*/}
                             {
-                                this.state.visibleList == "series" ? (
+                                (this.state.seasonCount != null && this.state.visibleList == "series") ? (
                                     <View>
-                                        <View style={style.recommendMovieContainer}>
-                                            <FlatList
+                                        <View style={style.recommendMovieContainer}> */}
+                                    <FlatList
                                                 scrollEnabled={false}
-                                                data={videoList.viodeos}
+                                                data={this.state.seasonInfo[0]}
                                                 renderItem={({ item }) => (
                                                     <View style={[AppStyle.flexColumn, AppStyle.basePadding, { paddingTop: 20 }]}>
                                                         <View style={AppStyle.flexRow}>
@@ -508,32 +475,30 @@ class VideoDetail extends React.Component {
                                                     </View>
                                                 )} />
                                         </View>
-                                    </View>
-                                ) : null
+                                    </View>)
+                                    : null
                             }
-
 
                             {/* 비슷한 콘텐츠 */}
-                            {
-                                this.state.visibleList == "similar" ? (
-                                    <View style={style.recommendMovieContainer}>
-                                        <FlatList
-                                            scrollEnabled={false}
-                                            numColumns={3}
-                                            data={this.state.similarVideList}
-                                            renderItem={({ item }) => (
-                                                <View style={[AppStyle.flexCFs, { width: 110, height: 160 }]}>
-                                                    <Image style={{
-                                                        height: 150,
-                                                        width: 100,
-                                                        resizeMode: 'contain'
-                                                    }} source={item.thumbnail}>
-                                                    </Image>
-                                                </View>
-                                            )} />
-                                    </View>
-                                ) : null
-                            }
+                            {(this.state.similarVideList != null && this.state.visibleList == "similar") ? (
+                                <View style={style.recommendMovieContainer}>
+                                    <FlatList
+                                        scrollEnabled={false}
+                                        numColumns={3}
+                                        data={this.state.similarVideList}
+                                        renderItem={({ item }) => (
+                                            <View style={[AppStyle.flexCFs, { width: 110, height: 160 }]}>
+                                                <Image style={{
+                                                    height: 150,
+                                                    width: 100,
+                                                    resizeMode: 'contain'
+                                                }} source={{uri : item.thumbNail}}>
+                                                </Image>
+                                            </View>
+                                        )} />
+                                </View>
+                            ) : null}
+
                         </View>
                     </View>
                 </ScrollView>
