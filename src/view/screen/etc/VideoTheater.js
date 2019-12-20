@@ -27,12 +27,11 @@ import VideoPlayer from '../../module/VideoPlayer';
 import {  } from "react-native";
 
 class VideoTheater extends React.Component {
-
     render() {
         const Width = Dimensions.get('window').width
         const Height = Dimensions.get('window').height
         return (
-            <View style={ {flex: 1,backgroundColor : "red"}}>
+            <View>
                   <VideoPlayer
                   videoUrl = {"https://rawgit.com/uit2712/Mp3Container/master/tom_and_jerry_31.mp4"} videoHeight = {Height}/>
             </View>
