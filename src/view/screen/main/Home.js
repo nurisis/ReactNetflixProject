@@ -34,7 +34,9 @@ class Home extends React.Component {
   }
 
   getPopularMoviesAsync() {
-    return fetch('https://api.themoviedb.org/3/movie/popular?api_key=bc1ebe6e0dd688063e0bbf7d331610dc&language=en-US&page=1')
+    let random = Math.floor(Math.random() * 500) + 1 ;
+
+    return fetch('https://api.themoviedb.org/3/movie/popular?api_key=bc1ebe6e0dd688063e0bbf7d331610dc&language=en-US&page=' + random)
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({dataA: responseJson.results})
@@ -42,7 +44,9 @@ class Home extends React.Component {
   }
 
   getNowMoviesAsync() {
-    return fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=bc1ebe6e0dd688063e0bbf7d331610dc&language=en-US&page=2')
+    let random = Math.floor(Math.random() * 30) + 1 ;
+
+    return fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=bc1ebe6e0dd688063e0bbf7d331610dc&language=en-US&page=' + random)
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({dataB: responseJson.results})
@@ -50,7 +54,9 @@ class Home extends React.Component {
   }
 
   getUpcomingMoviesAsync() {
-    return fetch('https://api.themoviedb.org/3/discover/tv?api_key=bc1ebe6e0dd688063e0bbf7d331610dc&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false')
+    let random = Math.floor(Math.random() * 500) + 1 ;
+
+    return fetch('https://api.themoviedb.org/3/discover/tv?api_key=bc1ebe6e0dd688063e0bbf7d331610dc&language=en-US&sort_by=popularity.desc&page='+random+'&timezone=America%2FNew_York&include_null_first_air_dates=false')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({dataC: responseJson.results})
@@ -58,7 +64,9 @@ class Home extends React.Component {
   }
 
   getTopRatedMoviesAsync() {
-    return fetch('https://api.themoviedb.org/3/movie/top_rated?api_key=bc1ebe6e0dd688063e0bbf7d331610dc&language=en-US&page=1')
+let random = Math.floor(Math.random() * 100) + 1 ;
+
+    return fetch('https://api.themoviedb.org/3/movie/top_rated?api_key=bc1ebe6e0dd688063e0bbf7d331610dc&language=en-US&page=' + random)
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({dataD: responseJson.results})
