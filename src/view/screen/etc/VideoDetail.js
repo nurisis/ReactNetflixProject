@@ -32,35 +32,89 @@ randomNumber = 4;
 // const movie_id = navigation.getParam("movie_id");
 
 class VideoDetail extends React.Component {
-    state = {
-        backgroundImg: dummy.videos[randomNumber].thumbNail,
-        title: dummy.videos[randomNumber].name,
-        year: dummy.videos[randomNumber].comeoutDate,
-        seasonCount: dummy.videos[randomNumber].totalSeason,
-        allowAge: dummy.videos[randomNumber].allowAge,
-        resolution: dummy.videos[randomNumber].videoQuality,
-        sameRate: 98,
-        subTitle: dummy.videos[randomNumber].advertiseTitle,
-        subTitle2: dummy.videos[randomNumber].summaryTitle,
-        summary: dummy.videos[randomNumber].summary,
+    // const { navigation } = this.props;
+    // ToastAndroid.show("ID:"+navigation.getParam("movie_id"), ToastAndroid.LONG)
 
-        isLike: dummy.videos[randomNumber].myState.evaluate,
-        isDibs: dummy.videos[randomNumber].myState.isDibs,
+    constructor(props){
+        super(props);
+        const { navigation } = this.props;
 
-        isEsteem: 1,
-        esteem: 1,
-        downloadVisible: false,
+        this.getMovieInfo(navigation.getParam("movieId"));
+        this.getPopularMoviesAsync();
 
-        // 시즌 별 리스트 데이터
-        seasonInfo : dummy.videos[randomNumber].seasonInfo,
+        this.state = {
+            seasonCount: dummy.videos[randomNumber].totalSeason,
+            allowAge: dummy.videos[randomNumber].allowAge,
+            resolution: dummy.videos[randomNumber].videoQuality,
+            isLike: dummy.videos[randomNumber].myState.evaluate,
+            isDibs: dummy.videos[randomNumber].myState.isDibs,
+            isEsteem: 1,
+            esteem: 1,
+            downloadVisible: false,
+            // 시즌 별 리스트 데이터
+            seasonInfo : dummy.videos[randomNumber].seasonInfo,
+            // subTab api 따로
+            subTab: ["회차정보", "비슷한 컨텐츠"],
+            visibleList: "similar",
+            visibleModal: false,
+        };
+    }
 
-        // subTab api 따로
-        subTab: ["회차정보", "비슷한 컨텐츠"],
+    getMovieInfo(movieId) {
+        return fetch('https://api.themoviedb.org/3/movie/' + movieId + '?api_key=bc1ebe6e0dd688063e0bbf7d331610dc&language=en-US')
+          .then((response) => 
+          response.json())
+          .then((responseJson) => {
+            // 제목
+            const title = responseJson.title;  
+            // 이미지
+            const poster = "https://image.tmdb.org/t/p/w500" + responseJson.poster_path;
+            // 장르
+            const genres = responseJson.genres; 
+            let genresName = '';
+            for(let i = 0 ; i< genres.length;i++){
+                if(i == genres.length -1){
+                    genresName += genres[i].name;
+                }else{
+                    genresName += genres[i].name + ", "; 
+                }
+            }
+            const overview = responseJson.overview; // 줄거리
+            const releaseDate = responseJson.release_date.substring(0,4);  // 출시일
+            const runtime = responseJson.runtime +" min";   // 영상 시간
+            const voteAverage = responseJson.vote_average;   // 평점
+            // const popularity = responseJson.popularity;   // 인기도
+            this.setState({
+                backgroundImg: poster,
+                year : releaseDate,
+                title : title,
+                subTitle : overview,
+                sameRate : voteAverage,
+                genres : genresName,
+                runtime : runtime
+            });
+            // ToastAndroid.show(responseJson.overview+"", ToastAndroid.LONG);
+        })       
+      }
 
-        visibleList: "similar",
-        similarVideList: dummy.SimilarVideos,
-        visibleModal: false,
-    };
+      getPopularMoviesAsync() {
+        let random = Math.floor(Math.random() * 500) + 1 ;
+          return fetch('https://api.themoviedb.org/3/movie/popular?api_key=bc1ebe6e0dd688063e0bbf7d331610dc&language=en-US&page='+random)
+          .then((response) => response.json())
+          .then((responseJson) => {
+            let result = responseJson.results;
+            let length = result.length;
+            let imgs = [];
+            for(let i = 0; i <length; i++){
+                let path = "https://image.tmdb.org/t/p/w500" + result[i].poster_path;
+                imgs.push({"thumbNail" :  path});
+            }
+
+              this.setState({
+                similarVideList : imgs
+              });
+    })
+}
 
     isVideoList = (visibleList) => {
         let visibleName;
@@ -120,13 +174,6 @@ class VideoDetail extends React.Component {
 
     
     render() {
-        const { navigation } = this.props;
-        ToastAndroid.show("ID:"+navigation.getParam("movie_id"), ToastAndroid.LONG)
-
-        //  년도
-        this.state.year +="";
-        this.state.year = (this.state.year).substring(0,4); 
-
         //  오름차순
         function sortAscending(list, keyword) {
             return list.sort(function (a, b) {
@@ -180,7 +227,7 @@ class VideoDetail extends React.Component {
                                 {this.state.title}
                             </Text>
                             <View style={AppStyle.flexRow}>
-                                <Text style={AppStyle.green}>{this.state.sameRate}% 일치</Text>
+                                <Text style={AppStyle.green}>{this.state.sameRate}/10</Text>
                                 <View style={[AppStyle.flexRow, { marginLeft: 10 }]}>
 
                                     <View>
@@ -206,11 +253,17 @@ class VideoDetail extends React.Component {
 
                                     <View style={{ paddingLeft: 5 }}>
                                         <Text style={[style.videoInfo, AppStyle.fb]}>
-                                            {this.state.resolution}
+                                            {this.state.runtime}
                                         </Text>
                                     </View>
-
                                 </View>
+                            </View>
+                            <View>
+                            <View style={{ paddingLeft: 5 }}>
+                                        <Text style={[style.videoInfo, AppStyle.fb]}>
+                                            {this.state.genres}
+                                        </Text>
+                                        </View>
                             </View>
 
                                     {/* 영화 줄거리 및 서브 타이틀 텍스트 표시 */}
@@ -220,11 +273,7 @@ class VideoDetail extends React.Component {
                                         {this.state.subTitle}
                                     </Text>
                                 ) : null}
-                                {this.state.subTitle2 != null ? (
-                                    <Text style={[style.subTitle2, { marginTop: 5 }]}>
-                                        {this.state.subTitle2}
-                                    </Text>
-                                ) : null}
+
                                 {this.state.summary != null ? (
                                     <Text style={[style.summary, { marginTop: 5 }]}>
                                         {this.state.summary}
@@ -459,11 +508,7 @@ const style = StyleSheet.create({
         fontSize: 15,
         fontWeight: 'bold',
     },
-    subTitle2: {
-        color: "white",
-        fontSize: 13,
-        fontWeight: 'bold',
-    },
+
     summary: {
         color: "white",
         fontSize: 13,

@@ -65,8 +65,10 @@ class Home extends React.Component {
     })       
   }
 
-  videoDetailMove(){
-    this.props.navigation.navigate('VideoDetail')
+  videoDetailMove(movieId){
+    this.props.navigation.navigate('VideoDetail',{
+      "movieId": movieId
+    });
   }
 
   onMorePress() {
@@ -94,22 +96,22 @@ class Home extends React.Component {
                 <HorizonScrollView
                   title = {"Netflix 인기 콘텐츠"}
                   data = {this.state.dataA}
-                  onPress = {()=>this.videoDetailMove()}
+                  videoDetailMove={this.videoDetailMove.bind(this)}
                 />
                 <HorizonScrollView
                   title = {"현재 상영작"}
                   data = {this.state.dataB}
-                  onPress = {()=>this.videoDetailMove()}
+                  videoDetailMove={this.videoDetailMove.bind(this)}
                 />
                 <HorizonScrollView
                   title = {"인기 Tv 시리즈 "}
                   data = {this.state.dataC}
-                  onPress = {()=>this.videoDetailMove()}
+                  videoDetailMove={this.videoDetailMove.bind(this)}
                 />
                 <HorizonScrollView
                   title = {"TOP 인기순위"}
                   data = {this.state.dataD}
-                  onPress = {()=>this.videoDetailMove()}
+                  videoDetailMove={this.videoDetailMove.bind(this)}
                 />
           </SafeAreaView>
         

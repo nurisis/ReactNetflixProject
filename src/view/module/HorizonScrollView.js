@@ -12,10 +12,9 @@ export default class HorizonScrollView extends Component {
 
     constructor(props){
         super(props);
-    }
-
-    videoDetailMove(id){
-        this.props.navigation.navigate('VideoDetail', {movie_id:id})
+        this.state = {
+            videoDetailMove : this.props.videoDetailMove
+        };
     }
 
     render(){
@@ -27,7 +26,8 @@ export default class HorizonScrollView extends Component {
                     horizontal
                     style={styles.flatlist}
                     renderItem={({ item }) =>
-                    <TouchableOpacity onPress={this.props.onPress}>
+                    <TouchableOpacity onPress={()=>
+                    this.props.videoDetailMove(item.id)}>
                         <Card
                             // image = {{uri : item.thumbNail}}
                             image = {{uri : "https://image.tmdb.org/t/p/w500"+item.poster_path}}
@@ -42,6 +42,7 @@ export default class HorizonScrollView extends Component {
       }
 
 }
+
 
 
 const styles = StyleSheet.create({
